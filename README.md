@@ -61,16 +61,18 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 ### Purpose
 
-2-5 sentences describing what the system does
+The name of the website will be determined by the group members at a later date. The design of the webpage strives to be intuitive and user friendly. On the other hand, it should also be able to show the intricacies of more complex schedules. The timeslots will be elected by the owner of the schedule planner and the users will then fill in the template.
 
 ### Pages
 
-* Home: 1-3 sentences describing what the page displays and what a user can do
-* Shopping cart: ...
+* Home Page
+* Schedule Page
+* Task Manager Page
+* Login Page
 
 ### Entity-Relationship (ER) Diagram
 
-![ER Diagram](./images/er_diagram.png)
+![ER Diagram](./images/Diagram.png)
 
 ## Teaser (MS3)
 
