@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 //will be altered depending on the front is structured
 var scheduleSchema = new Schema({
     month: { type: Number },
-    day: { type: number },
+    day: { type: Number },
     availability: { type: Boolean }
 });
 
