@@ -5,8 +5,11 @@ var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 
+
+var scheduleController = require('./controllers/schedules');
 var tasksController = require('./controllers/tasks');
 var customersController = require('./controllers/customers');
+
 
 
 // Variables
@@ -39,6 +42,8 @@ app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
 });
 
+
+app.use(scheduleController);
 app.use(tasksController);
 app.use(customersController);
 
