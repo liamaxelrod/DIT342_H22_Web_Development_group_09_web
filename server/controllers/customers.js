@@ -38,7 +38,7 @@ router.get('/api/customers/:customerId', function(req, res, next) {
 
 //  Deletes all the customers
 router.delete('/api/customers', function(req,res,next) {
-    Customer.find(function(err,customers){
+    Customer.deleteMany(function(err,customers){
         if(err){return next (err);
         }
         if(customers === null){
@@ -51,7 +51,7 @@ router.delete('/api/customers', function(req,res,next) {
 
 router.delete('/api/customers/:customerId', function(req, res, next) {
     const customerId = req.params.customerId;
-    Customer.findById(customerId, function(err, customer) {
+    Customer.findOneAndDelete(customerId, function(err, customer) {
         if (err) { return next(err); }
         if (customer === null) {
         return res.status(404).json({'message': 'Customer with specified Id cannot be found'});
