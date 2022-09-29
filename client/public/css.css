@@ -1,0 +1,31 @@
+body {
+    background-image: url("Pictures/114617b.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-align: center;
+  }
+  #center {
+    position: absolute;
+    top: 0px; bottom: 0px; left: 0px; right: 0px;
+    height: 50%; width: 50%;
+    margin: auto;
+  }
+  .registerbtn {
+   padding: 10px;
+   width: 162px;
+   margin: 20px;
+  } .registerbtn:hover {
+    color: crimson;
+    background-color: #000000;
+  }
+  #pass {
+  padding-bottom: 5px;
+  }
+  #buttonbox {
+    margin-top: 25px;
+  }
