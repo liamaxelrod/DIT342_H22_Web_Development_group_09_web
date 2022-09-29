@@ -2,6 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">home</router-link>
+      <router-link to="/schedulingSubmit">schedulingSubmit</router-link>
       <router-link to="/scheduling">scheduling</router-link>
     </div>
     <!-- Render the content of the current page view -->
