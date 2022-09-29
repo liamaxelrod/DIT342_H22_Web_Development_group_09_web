@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id='table'>
+    <div class="aaa">
       <table>
         <tr>
           <th></th>
@@ -30,20 +30,20 @@
           <th>24:00</th>
         </tr>
         <tr>
-          <td>1</td>
-          <td type="button" class="buttons"></td>
-          <td></td>
-          <td>qqq</td>
-          <td>qqqqq</td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>ss</td>
+          <td type="button">1</td>
+          <td >2</td>
+          <td type="button" style="color: red;">3</td>
+          <td>4</td>
+          <td>5</td>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
-          <td></td>
-          <td></td>
+          <td><button></button></td>
+          <td><button></button></td>
+          <td><button style="color: red;"></button></td>
+          <td class="red-box"></td>
           <td></td>
           <td></td>
           <td></td>
@@ -69,12 +69,12 @@ export default {
   name: 'schedulingSubmit',
   data() {
     return {
-      message: 'none'
+      message: 'none',
+      int: []
     }
   },
   methods: {
     changeColor() {
-
     }
   }
 }
@@ -84,20 +84,18 @@ export default {
   table, th, td {
   border:2px solid black;
 }
-  .buttons {
-  display:inline-block;
-  width: 100%;
-  min-width: 99%;
-  min-height: 99%;
-  height: 100%;
+  button {
+    width: 100%;
+    height: 100%;
 }
-  table_box_busy {
+  .red-box {
   color: red;
+  background-color: brown;
 }
-  table_box_available {
+  .red-box {
   color: blue;
 }
-  table_box_undecided {
+  .red-box {
   color: white;
 }
 </style>
