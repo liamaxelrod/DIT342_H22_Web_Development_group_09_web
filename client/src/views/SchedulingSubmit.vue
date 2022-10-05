@@ -100,7 +100,7 @@
       </table>
     </div>
     <div>
-      <button>submit</button>
+      <button @click="handleSubmet()">submit</button>
     </div>
   </div>
 </template>
@@ -210,7 +210,8 @@ export default {
       return currentCell
     },
     handleSubmet() {
-      Api.post('/camels', this.cells)
+      Api.post('/schedules', this.cells)
+      console.log('click')
     }
   }
 }
