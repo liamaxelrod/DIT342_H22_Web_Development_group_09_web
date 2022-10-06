@@ -175,8 +175,7 @@ export default {
     handleClick(event, cell) {
       // figure out which cell on the row you click
       const index = event.path[0].cellIndex
-      // figure out what day <>
-      console.log('path---' + cell.day)
+      // figure out what day <console.log('path---' + cell.day)>
       const currentCell = this.findDay(cell.day, index)
       // change the color of the cell
       if (currentCell.state === 0) {

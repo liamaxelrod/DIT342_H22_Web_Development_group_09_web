@@ -4,8 +4,8 @@ var Schedule = require('../models/schedule');
 
 //create schedule
 router.post('/api/schedules', function(req, res, next){
-    var schedule = new Schedule();
-    schedule.cells = req.body
+    var schedule = new Schedule(req.body); //why ???
+    // schedule.cells = req.body //why ???
     console.log(req)
     schedule.save(function(err, schedule) {
         if (err) { return next(err); }
