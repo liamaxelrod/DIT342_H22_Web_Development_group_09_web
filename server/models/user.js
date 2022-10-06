@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var customerSchema = new Schema({
+var userSchema = new Schema({
     name: { type: String},
     email: { type: String, require: true, unique: true },
     username: { type: String, require: true, unique: true },
@@ -9,4 +9,4 @@ var customerSchema = new Schema({
 
 });
 
-module.exports = mongoose.model("customers", customerSchema);
+module.exports = mongoose.model("users", userSchema);

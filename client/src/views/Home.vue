@@ -1,6 +1,6 @@
 <template>
   <div id="center">
-  <h1 style="color:#FFCA3A;">Welcome to DIT-342</h1>
+  <h1 style="color:#FFCA3A;">Welcome to Quick Scheduling</h1>
   <br>
   <div class="form-username">
           <h3 style="color:#98D2EB" id="username">Username</h3><br />
@@ -24,7 +24,7 @@
           /><br />
         </div>
         <div id="buttonbox">
-        <button onclick="location.href='/forgotPassword'" class="registerbtn">Forgot Password</button>
+        <button onclick="location.href='/forgotpassword'" class="registerbtn">Forgot Password</button>
         <button onclick="location.href='/register'" class="registerbtn">Register</button>
         <button onclick="location.href='/profile'" class="registerbtn">Log in</button>
         </div>

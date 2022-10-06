@@ -8,7 +8,7 @@ var history = require('connect-history-api-fallback');
 
 var scheduleController = require('./controllers/schedules');
 var tasksController = require('./controllers/tasks');
-var customersController = require('./controllers/customers');
+var usersController = require('./controllers/users');
 
 
 
@@ -45,7 +45,7 @@ app.get('/api', function(req, res) {
 
 app.use(scheduleController);
 app.use(tasksController);
-app.use(customersController);
+app.use(usersController);
 
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
