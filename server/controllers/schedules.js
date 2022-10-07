@@ -4,9 +4,8 @@ var Schedule = require('../models/schedule');
 
 //create schedule
 router.post('/api/schedules', function(req, res, next){
-    var schedule = new Schedule(req.body); //why ???
-    // schedule.cells = req.body //why ???
-    console.log(req)
+    var schedule = new Schedule(req.body);  // gets only what's in the object
+    // schedule.cells = req.body            // gets the entire object
     schedule.save(function(err, schedule) {
         if (err) { return next(err); }
         res.status(201).json(schedule);
@@ -18,6 +17,10 @@ router.get('/api/schedules', function(req, res, next) {
     Schedule.find(function(err, schedules) {
         if (err) { return next(err); }
         res.json({'schedules': schedules });
+
+        console.log(Schedule)
+        console.log("aaa")
+        
     });
 });
 

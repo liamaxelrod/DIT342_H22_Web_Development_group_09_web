@@ -101,6 +101,11 @@
     </div>
     <div>
       <button @click="handleSubmet()">submit</button>
+      <button @click="handlePatch()">Patch</button>
+      <button @click="handlePut()">put</button>
+      <button @click="handleGitAll()">GitAll</button>
+      <button @click="handleGitOne()">GitOne</button>
+      <button @click="handleDelete()">delete</button>
     </div>
   </div>
 </template>
@@ -113,7 +118,7 @@ export default {
     return {
       cells: {
         monday: {
-          cellsRo: Array.from({ length: 23 }, (_, i) => ({
+          cellsRo: Array.from({ length: 24 }, (_, i) => ({
             state: 0,
             id: i,
             string: '',
@@ -121,7 +126,7 @@ export default {
           }))
         },
         tuesday: {
-          cellsRo: Array.from({ length: 23 }, (_, i) => ({
+          cellsRo: Array.from({ length: 24 }, (_, i) => ({
             state: 0,
             id: i,
             string: '',
@@ -129,7 +134,7 @@ export default {
           }))
         },
         wednesday: {
-          cellsRo: Array.from({ length: 23 }, (_, i) => ({
+          cellsRo: Array.from({ length: 24 }, (_, i) => ({
             state: 0,
             id: i,
             string: '',
@@ -137,7 +142,7 @@ export default {
           }))
         },
         thursday: {
-          cellsRo: Array.from({ length: 23 }, (_, i) => ({
+          cellsRo: Array.from({ length: 24 }, (_, i) => ({
             state: 0,
             id: i,
             string: '',
@@ -145,7 +150,7 @@ export default {
           }))
         },
         friday: {
-          cellsRo: Array.from({ length: 23 }, (_, i) => ({
+          cellsRo: Array.from({ length: 24 }, (_, i) => ({
             state: 0,
             id: i,
             string: '',
@@ -153,7 +158,7 @@ export default {
           }))
         },
         saturday: {
-          cellsRo: Array.from({ length: 23 }, (_, i) => ({
+          cellsRo: Array.from({ length: 24 }, (_, i) => ({
             state: 0,
             id: i,
             string: '',
@@ -161,7 +166,7 @@ export default {
           }))
         },
         sunday: {
-          cellsRo: Array.from({ length: 23 }, (_, i) => ({
+          cellsRo: Array.from({ length: 24 }, (_, i) => ({
             state: 0,
             id: i,
             string: '',
@@ -211,6 +216,26 @@ export default {
     handleSubmet() {
       Api.post('/schedules', this.cells)
       console.log('click')
+    },
+    handlePatch() {
+      Api.patch('/schedules', this.cells)// ??
+      console.log('click')
+    },
+    handlePut() {
+      Api.put('/schedules', this.cells)// ??
+      console.log('click')
+    },
+    handleGitAll() {
+      Api.get('/schedules', this.cells)// ??
+      console.log('click')
+    },
+    handleGitOne() {
+      Api.git('/schedules', this.cells)// ??
+      console.log('click')
+    },
+    handleDelete() {
+      Api.delete('/schedules', this.cells)// ??
+      console.log('click')
     }
   }
 }
@@ -224,7 +249,6 @@ td {
   height: 20px;
   border: 2px solid black;
 }
-button,
 table {
   width: 100%;
   height: 100%;
