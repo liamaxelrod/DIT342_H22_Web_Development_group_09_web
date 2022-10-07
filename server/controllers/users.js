@@ -23,11 +23,11 @@ router.get('/api/users', function(req,res,next) {
     });
 });
 
-//  Gets a user with the requested userId
+//  Gets a user with the requested username
 
-router.get('/api/users/:userId', function(req, res, next) {
-    const userId = req.params.userId;
-    User.findById(userId, function(err, user) {
+router.get('/api/users/:username', function(req, res, next) {
+    const username = req.params.username;
+    User.findById(username, function(err, user) {
         if (err) { return next(err); }
         if (user === null) {
         return res.status(404).json({'message': 'User with specified Id cannot be found'});
@@ -49,9 +49,9 @@ router.delete('/api/users', function(req,res,next) {
     });
 });
 
-router.delete('/api/users/:userId', function(req, res, next) {
-    const userId = req.params.userId;
-    User.findOneAndDelete(userId, function(err, user) {
+router.delete('/api/users/:username', function(req, res, next) {
+    const username = req.params.username;
+    User.findOneAndDelete(username, function(err, user) {
         if (err) { return next(err); }
         if (user === null) {
         return res.status(404).json({'message': 'User with specified Id cannot be found'});
@@ -60,10 +60,10 @@ router.delete('/api/users/:userId', function(req, res, next) {
     });
 });
 
-//  Updates User with userId using PUT (updates every singe aspect)
-router.put('/api/users/:userId', function(req,res,next) {
-    const userId = req.params.userId
-    User.findOneAndReplace(userId, function(err,user){
+//  Updates User with username using PUT (updates every singe aspect)
+router.put('/api/users/:username', function(req,res,next) {
+    const username = req.params.username
+    User.findOneAndReplace(username, function(err,user){
         if(err){return next (err);
         }
         if(user === null){
@@ -81,11 +81,11 @@ router.put('/api/users/:userId', function(req,res,next) {
 
 });
 
-//  Updates User with userId using PATCH (updates only the specific aspect)
+//  Updates User with username using PATCH (updates only the specific aspect)
 
-router.put('/api/users/:userId', function(req,res,next) {
-    const userId = req.params.userId
-    User.findOneAndUpdate(userId, function(err,user){
+router.put('/api/users/:username', function(req,res,next) {
+    const username = req.params.username
+    User.findOneAndUpdate(username, function(err,user){
         if(err){return next (err);
         }
         if(user === null){

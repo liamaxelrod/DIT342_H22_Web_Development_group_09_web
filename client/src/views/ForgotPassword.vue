@@ -13,7 +13,7 @@
           /><br />
         </div>
   <br>
-        <button onclick="location.href='/'" class="requestNewPassword">Request New Password</button>
+        <button onclick="location.href='/'" class="registerbtn">New Password</button>
       </div>
   </template>
   <style>

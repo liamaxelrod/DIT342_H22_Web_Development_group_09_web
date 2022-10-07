@@ -27,9 +27,31 @@
         <button onclick="location.href='/forgotpassword'" class="registerbtn">Forgot Password</button>
         <button onclick="location.href='/register'" class="registerbtn">Register</button>
         <button onclick="location.href='/profile'" class="registerbtn">Log in</button>
+        <button @click="getUser()" onclick="location.href='/'" class="registerbtn">Get User</button>
         </div>
       </div>
   </template>
+<script>
+import { Api } from '../Api'
+export default {
+  name: 'Register',
+  data() {
+    return {
+      user: {
+        username: 'bbb'
+      }
+    }
+  },
+  methods: {
+    getUser() {
+      console.log(this.username)
+      console.log('click')
+      Api.get('/users', this.user)
+      console.log(this.username)
+    }
+  }
+}
+</script>
   <style>
   input[type='text'],
   input[type='password'] {
