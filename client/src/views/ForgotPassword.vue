@@ -4,13 +4,7 @@
   <br>
   <div class="form-username">
           <h3 style="color:#98D2EB" id="forgotPassword">Username</h3><br />
-          <input
-            type="text"
-            class="form-control"
-            v-model="username"
-            placeholder="Enter Email"
-            required
-          /><br />
+          <input type="text" class="form-control" v-model="username" placeholder="Enter Email" required/><br />
         </div>
   <br>
         <button onclick="location.href='/'" class="registerbtn">New Password</button>

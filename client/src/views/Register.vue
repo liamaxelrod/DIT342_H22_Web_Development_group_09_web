@@ -1,51 +1,28 @@
 <template>
-<div id="center">
-<h1 style="color:#FFCA3A;">New Account Registration</h1>
-<br>
-<div class="form-username">
-<h3 style="color:#98D2EB">Username</h3><br />
-<input id="username"
-type="text"
-v-model="user.username"
-placeholder="Enter Username"
-required
-/><br />
-</div>
-<br>
-<div class="form-password">
-<h3 style="color:#98D2EB">Password</h3><br />
-<input
-id="password"
-type="password"
-v-model="user.password"
-placeholder="Enter Password"
-required
-/><br />
-</div>
-<div>
-<h3 style="color:#98D2EB">Name</h3><br />
-<input
-id="name"
-type="text"
-v-model="user.name"
-placeholder="Enter name"
-required
-/><br />
-</div>
-<div>
-<h3 style="color:#98D2EB">Email</h3><br />
-<input
-id="email"
-type="text"
-v-model="user.email"
-placeholder="Enter email"
-required
-/><br />
-</div>
-<div id="buttonbox">
-<button @click="registerUser()" onclick="location.href='/'" class="registerbtn">Create Account</button>
-</div>
-</div>
+  <div id="center">
+    <h1 style="color:#FFCA3A;">New Account Registration</h1>
+    <br>
+    <div class="form-username">
+      <h3 style="color:#98D2EB">Username</h3><br />
+      <input id="username" type="text" v-model="user.username" placeholder="Enter Username" required /><br />
+    </div>
+    <br>
+    <div class="form-password">
+      <h3 style="color:#98D2EB">Password</h3><br />
+      <input id="password" type="password" v-model="user.password" placeholder="Enter Password" required /><br />
+    </div>
+    <div>
+      <h3 style="color:#98D2EB">Name</h3><br />
+      <input id="name" type="text" v-model="user.name" placeholder="Enter name" required /><br />
+    </div>
+    <div>
+      <h3 style="color:#98D2EB">Email</h3><br />
+      <input id="email" type="text" v-model="user.email" placeholder="Enter email" required /><br />
+    </div>
+    <div id="buttonbox">
+      <button @click="registerUser()" onclick="location.href='/'" class="registerbtn">Create Account</button>
+    </div>
+  </div>
 </template>
 <script>
 import { Api } from '../Api'
@@ -66,6 +43,7 @@ export default {
       console.log(this.user.username)
       console.log('click')
       Api.post('/users', this.user)
+        .then(console.log)
     }
   }
 }
@@ -73,24 +51,27 @@ export default {
 <style>
 input[type='text'],
 input[type='username'] {
-width: 27%;
-margin: 5px 0 10px 0;
-display: inline-block;
-border: none;
+  width: 27%;
+  margin: 5px 0 10px 0;
+  display: inline-block;
+  border: none;
 }
+
 input[type='text']:focus,
 input[type='password']:focus {
-background-color: #ddd;
-outline: none;
+  background-color: #ddd;
+  outline: none;
 }
+
 input[type='text']:focus,
 input[type='name']:focus {
-background-color: #ddd;
-outline: none;
+  background-color: #ddd;
+  outline: none;
 }
+
 input[type='text']:focus,
 input[type='email']:focus {
-background-color: #ddd;
-outline: none;
+  background-color: #ddd;
+  outline: none;
 }
 </style>

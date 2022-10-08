@@ -27,13 +27,23 @@ router.get('/api/users', function(req,res,next) {
 
 router.get('/api/users/:username', function(req, res, next) {
     const username = req.params.username;
-    User.findById(username, function(err, user) {
+
+
+    User.findOne({username: username}, function(err, user) {
         if (err) { return next(err); }
         if (user === null) {
-        return res.status(404).json({'message': 'User with specified Id cannot be found'});
+            return res.status(404).json({'message': 'User not found'});
         }
-        res.json({'users': user});
+        res.json(user);
     });
+
+    // User.findById(username, function(err, user) {
+    //     if (err) { return next(err); }
+    //     if (user === null) {
+    //     return res.status(404).json({'message': 'User with specified Id cannot be found'});
+    //     }
+    //     res.json({'users': user});
+    // });
 });
 
 //  Deletes all the users
