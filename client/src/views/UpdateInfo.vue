@@ -1,4 +1,5 @@
 <template>
+    <div id="backchangewhite">
 <div>
         <div><h1>Update Profile</h1></div>
         <div>
@@ -10,6 +11,7 @@
             <p>Email</p>
 
     </div>
+</div>
 </div>
 </template>
 
