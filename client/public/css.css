@@ -16,6 +16,8 @@ height: 50%; width: 50%;
 margin: auto;
 }
 .registerbtn {
+background-color: white;
+color: black;
 padding: 10px;
 width: 162px;
 margin: 20px;
@@ -29,3 +31,94 @@ padding-bottom: 5px;
 #buttonbox {
 margin-top: 25px;
 }
+.btnUser{
+  color: white;
+  background-color: rgb(55, 55, 158);
+  width: 125px;
+  height: 45px;
+  font-size: 15px;
+  font-weight: 50%;
+  margin: 10px;
+  }
+.btnUser:hover{
+    color: rgb(254, 0, 0);
+    background-color: rgb(255, 255, 255);
+    font-weight: 70%;
+    }
+    .left{
+      height: 100%;
+      position: fixed;
+      top: 0;
+      width: 25%;
+      left: 0;
+      background-color: rgb(71, 37, 63);
+      }
+      .right{
+      height: 100%;
+      position: fixed;
+      top: 0;
+      width: 75%;
+      right: 0;
+      background-color: white;
+      }
+      .image{
+      width: 125px;
+      border-radius: 50%;
+      margin: 10px;
+      border: 1px solid black;
+      }
+      .image:hover{
+      cursor: pointer;
+      }
+      h1{
+      font-size: 40px;
+      color: white;
+      }
+      p{
+      color: white;
+      font-size: 30px;
+      }
+      th,tr{
+      text-align: left;
+      border: 2px solid black;
+      }
+      th{
+      background-color: rgb(71, 37, 63);
+      color: white;
+      height: 4px;
+      }
+      tr{
+      padding: 20px;
+      height: px;
+      }
+      table{
+      margin: 3vw auto;
+      width: 80%;
+      height: 200px;
+      }
+      .top{
+      width: 100%;
+      height: 50%;
+      top: 0;
+      left:0;
+      background-color: white;
+      }
+      .bottom{
+      width: 100%;
+      height: 50%;
+      bottom: 0;
+      right:0;
+      background-color: white;
+      }
+      #logoutbtn{
+      color: white;
+      background-color: rgb(75,0,0);
+      width: 120px;
+      height: 40px;
+      }
+      #logoutbtn:hover{
+      color: white;
+      background-color: rgb(125,0,0);
+      width: 120px;
+      height: 40px;
+      }

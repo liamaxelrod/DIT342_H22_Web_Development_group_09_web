@@ -7,7 +7,6 @@ import SchedulingSubmit from './views/SchedulingSubmit.vue'
 import Scheduling from './views/Scheduling.vue'
 import Register from './views/Register.vue'
 import ForgotPassword from './views/ForgotPassword.vue'
-
 Vue.use(Router)
 
 export default new Router({
@@ -48,7 +47,6 @@ export default new Router({
       path: '/forgotpassword',
       name: 'forgotPassword',
       component: ForgotPassword
-
     }
   ]
 })

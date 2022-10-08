@@ -2,116 +2,62 @@
 <div>
     <div class="left">
         <h1>Profile</h1>
+        <div><img src="../images/ProfilePicture.png" alt="profile picture" class="image" @click="showModal = true"></div>
         <div>
-            <a href=""><img src="../images/ProfilePicture.png" alt="profile picture" class="image"></a>
-        </div>
-        <div>
-            <button type ="button" class="profilebtn" onclick="location.href='/update'">Update Profile</button>
+            <button class="btnUser" onclick="location.href='/update'">Update Profile</button>
         </div>
         <div class>
             <p>Username</p>
             <p>Name</p>
             <p>Email</p>
-
+        </div>
+        <div>
+          <button class="btnUser" id="logoutbtn">log out</button>
         </div>
     </div>
-    <div class="right">
-        <div class="top">
+    <div class="right"> <div class="top">
             <table>
-                <th>Tasks</th>
-                <tr>Tasks unavailable at the moment</tr>
+                <th>CREATE A SCHEDULE</th>
+                <tr>
+                  <div>
+                    <input type="text" placeholder="Schedule name">
+                  </div>
+                  <div>
+                    <button class="btnUser">
+                      Create Schedule
+                    </button>
+                  </div>
+                </tr>
             </table>
         </div>
         <div class="bottom">
             <table>
-                <th>Schedule</th>
-                <tr>Schedule unavailable at the moment</tr>
+                <th>DELETE A SCHEDULE</th>
+                <tr>
+                  <div>
+                    <input type="text" placeholder="Schedule Id" required >
+                  </div>
+                  <button @click="showModal = true" class="btnUser">Delete Schedule</button>
+                </tr>
             </table>
         </div>
     </div>
-    <div id="myModal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>Some text in the Modal..</p>
-        </div>
-    </div>
+    <modal :show="showModal" @cancel="showModal = false">
+    </modal>
 </div>
 </template>
-<style scoped>
-.left{
-height: 100%;
-position: fixed;
-top: 0;
-width: 25%;
-left: 0;
-background-color: rgb(71, 37, 63);
+
+<script>
+import Modal from './Modal.vue'
+
+export default {
+  components: {
+    Modal
+  },
+  data() {
+    return {
+      showModal: false
+    }
+  }
 }
-.right{
-height: 100%;
-position: fixed;
-top: 0;
-width: 75%;
-right: 0;
-background-color: white;
-}
-.image{
-width: 10vw;
-border-radius: 50%;
-margin: 10px;
-border: 1px solid black;
-}
-h1{
-font-size: 4vw;
-color: white;
-}
-p{
-color: white;
-font-size: 2vw;
-margin: 2vw 2vw;
-}
-button{
-color: white;
-background-color: rgb(55, 55, 158);
-width: 10vw;
-height: 2.5vw;
-font-size: 1vw;
-font-weight: 50%;
-margin: 10px;
-}
-button:hover{
-color: black;
-background-color: rgb(255, 255, 255);
-font-weight: 70%;
-}
-th,tr{
-text-align: left;
-border: 2px solid black;
-}
-th{
-background-color: rgb(71, 37, 63);
-color: white;
-height: 4vw;
-}
-tr{
-height: 10vw;
-}
-table{
-margin: 3vw auto;
-width: 50vw;
-}
-.top{
-width: 100%;
-height: 50%;
-top: 0;
-left:0;
-background-color: white;
-}
-.bottom{
-width: 100%;
-height: 50%;
-bottom: 0;
-right:0;
-background-color: white;
-}
-</style>
+</script>
