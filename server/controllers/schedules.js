@@ -4,9 +4,8 @@ var Schedule = require('../models/schedule');
 
 //create schedule
 router.post('/api/schedules', function(req, res, next){
-    var schedule = new Schedule(req.body); //why ???
-    // schedule.cells = req.body //why ???
-    console.log(req)
+    var schedule = new Schedule(req.body);  // gets only what's in the object
+    // schedule.cells = req.body            // gets the entire object
     schedule.save(function(err, schedule) {
         if (err) { return next(err); }
         res.status(201).json(schedule);
@@ -18,12 +17,18 @@ router.get('/api/schedules', function(req, res, next) {
     Schedule.find(function(err, schedules) {
         if (err) { return next(err); }
         res.json({'schedules': schedules });
+
+        console.log(Schedule)
+        console.log("aaa")
+        
     });
 });
 
 //get this it schedule
+// databaseurl.com/api/schedules?id={the id of the schedule}&username={the username of the user}
 router.get('/api/schedules/:id', function(req, res, next) {
     var id = req.params.id;
+    
     Schedule.findById(id, function(err, schedule) {
         if (err) { return next(err); }
         if (schedule === null) {
@@ -57,8 +62,9 @@ router.patch('/api/schedules/:id', function(req, res, next) {
             return res.status(404).json(
 {"message": "schedule not found"});
         }
-        schedule.color = (req.body.color || schedule.color);
-        schedule.position = (req.body.position || schedule.position);
+        schedule.monday.cellsRo.state = (req.body.monday.cellsRo.state || schedule.monday.cellsRo.state);
+        console.log(schedule.monday.cellsRo.state + "aaa")
+        // schedule.position = (req.body.position || schedule.position);
         schedule.save();
         res.json(schedule);
     });
