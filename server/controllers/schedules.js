@@ -13,46 +13,26 @@ router.post('/api/schedules', function(req, res, next){
 });
 
 //get schedule
-router.get('/api/schedules', function(req, res, next) {
-    Schedule.find(function(err, schedules) {
-        if (err) { return next(err); }
-        res.json({'schedules': schedules });
+router.get('/api/schedules', function (req, res, next) {
+//     Schedule.find(function(err, schedules) {
+//         if (err) { return next(err); }
+//         res.json({'schedules': schedules });
 
-        console.log(Schedule)
-        console.log("aaa")
-        
-    });
-});
+//     });
+// });
 
-//get this it schedule
-// databaseurl.com/api/schedules?id={the id of the schedule}&username={the username of the user}
-router.get('/api/schedules/:id', function(req, res, next) {
-    var id = req.params.id;
+Schedule.find().then((result) => {
+        if(result === null) 
+        {
+             res.status(404).send('sth');
+        }
+    res.json(result);
+    }
+    ).catch((err) => {
+        res.status(404).send();
+    return next(err);})
+    })//g
     
-    Schedule.findById(id, function(err, schedule) {
-        if (err) { return next(err); }
-        if (schedule === null) {
-            return res.status(404).json({'message': 'schedule not found!'});
-        }
-        res.json(schedule);
-    });
-});
-
-//put a new schedule in an old one
-router.put('/api/schedules/:id', function(req, res, next) {
-    var id = req.params.id;
-    Schedule.findById(id, function(err, schedule) {
-        if (err) { return next(err); }
-        if (schedule == null) {
-            return res.status(404).json({"message": "schedule not found"});
-        }
-        schedule.color = req.body.color;
-        schedule.position = req.body.position;
-        schedule.save();
-        res.json(schedule);
-    });
-});
-
 //Patchin existing schedule with new parameters
 router.patch('/api/schedules/:id', function(req, res, next) {
     var id = req.params.id;

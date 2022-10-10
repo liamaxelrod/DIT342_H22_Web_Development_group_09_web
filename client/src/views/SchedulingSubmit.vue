@@ -117,7 +117,8 @@ export default {
   data() {
     return {
       cells: {
-        idScheduling: 1,
+        owner: 'liam',
+        scheduleName: 'week 2',
         monday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
             state: 0,
@@ -219,12 +220,11 @@ export default {
       const res = await Api.post('/schedules', this.cells)
       console.log(res.data)
       // this is the exact same way but syntactic sugar
-      Api.post('/schedules', this.cells).then(res => {
-        console.log(res.data)
-      }).catch(err => {
-        console.log(err)
-      })
-
+      // Api.post('/schedules', this.cells).then(res => {
+      //   console.log(res.data)
+      // }).catch(err => {
+      //   console.log(err)
+      // })
       // this is how you get all the schedules
       // console.log('click')
     },
@@ -237,12 +237,6 @@ export default {
       console.log('click')
     },
     handleGitAll() {
-      Api.get('/schedules').then(res => {
-        console.log(res.data)
-      }).catch(err => {
-        console.log(err)
-      })
-
       const response = Api.get('/schedules').then(res => {
         return res.data
       })
@@ -250,8 +244,16 @@ export default {
       // pending promise
     },
     handleGitOne() {
-      Api.get('/schedules', this.cells)// ??
-      console.log('click')
+      const response = Api.get('/schedules').then(res => {
+        return res.data
+      })
+      console.log('respons' + response)
+      for (let i = 0; i < response.length; i++) {
+        console.log('zzz')
+        const element = response[i]
+        console.log(element + 'aaa')
+      }
+      // Api.get('/schedules', this.cells)// ??
     },
     handleDelete() {
       Api.delete('/schedules', this.cells)// ??

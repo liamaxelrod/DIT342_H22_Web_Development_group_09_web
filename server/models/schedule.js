@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 //will be altered depending on the front is structured
 var scheduleSchema = new Schema({
-    idScheduling: 0,
+    owner: '',
+    scheduleName: '',
     monday: Object,
     tuesday: Object,
     wednesday: Object,
