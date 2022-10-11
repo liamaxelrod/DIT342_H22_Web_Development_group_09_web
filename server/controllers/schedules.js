@@ -63,7 +63,8 @@ router.patch('/api/schedules/:id', function(req, res, next) {
 });
 
 //delete schedule
-router.delete('/api/schedules/:id', function(req, res, next) {
+/*
+router.delete('/api/schedules/:name', function(req, res, next) {
     var id = req.params.id;
     Schedule.findOneAndDelete({_id: id}, function(err, schedule) {
         if (err) { return next(err); }
@@ -73,6 +74,7 @@ router.delete('/api/schedules/:id', function(req, res, next) {
         res.json(schedule);
     });
 });
+*/
 
 module.exports = router;
 
