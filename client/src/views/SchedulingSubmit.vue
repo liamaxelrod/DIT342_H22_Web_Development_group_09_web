@@ -3,7 +3,7 @@
     <div class="aaa">
       <table>
         <tr>
-          <th></th>
+          <th ></th>
           <th>1:00</th>
           <th>2:00</th>
           <th>3:00</th>
@@ -243,14 +243,18 @@ export default {
       console.log(response)
       // pending promise
     },
-    handleGitOne() {
+    async handleGitOne() {
+      // const response = await Api.get('/schedules')
+
       const response = Api.get('/schedules').then(res => {
         return res.data
-      })
-      console.log('respons' + response)
+      }).then(console.log)
+      console.log(response)
+
+      // console.log(response.data)
       for (let i = 0; i < response.length; i++) {
-        console.log('zzz')
-        const element = response[i]
+        console.log(response + 'zzz')
+        const element = response.schedules[i]
         console.log(element + 'aaa')
       }
       // Api.get('/schedules', this.cells)// ??

@@ -5,13 +5,14 @@ var Schema = mongoose.Schema;
 var scheduleSchema = new Schema({
     owner: '',
     scheduleName: '',
-    monday: Object,
-    tuesday: Object,
-    wednesday: Object,
-    thursday: Object,
-    friday: Object,
-    saturday: Object,
-    sunday: Object
+    cells: Object
+    // monday: Object,
+    // tuesday: Object,
+    // wednesday: Object,
+    // thursday: Object,
+    // friday: Object,
+    // saturday: Object,
+    // sunday: Object
 });
 
 module.exports = mongoose.model('schedules', scheduleSchema);

@@ -5,7 +5,7 @@ var Schedule = require('../models/schedule');
 //create schedule
 router.post('/api/schedules', function(req, res, next){
     var schedule = new Schedule(req.body);  // gets only what's in the object
-    // schedule.cells = req.body            // gets the entire object
+    schedule.cells = req.body            // gets the entire object
     schedule.save(function(err, schedule) {
         if (err) { return next(err); }
         res.status(201).json(schedule);
@@ -14,25 +14,26 @@ router.post('/api/schedules', function(req, res, next){
 
 //get schedule
 router.get('/api/schedules', function (req, res, next) {
-//     Schedule.find(function(err, schedules) {
-//         if (err) { return next(err); }
-//         res.json({'schedules': schedules });
+    Schedule.find(function(err, schedules) {
+        if (err) { return next(err); }
+        res.json({'schedules': schedules });
 
-//     });
-// });
+    });
+});
 
-Schedule.find().then((result) => {
-        if(result === null) 
-        {
-             res.status(404).send('sth');
-        }
-    res.json(result);
-    }
-    ).catch((err) => {
-        res.status(404).send();
-    return next(err);})
-    })//g
-    
+// TA
+// Schedule.find().then((result) => {
+//         if(result === null) 
+//         {
+//              res.status(404).send('sth');
+//         }
+//     res.json(result);
+//     }
+//     ).catch((err) => {
+//         res.status(404).send();
+//     return next(err);})
+//     })//g
+
 //Patchin existing schedule with new parameters
 router.patch('/api/schedules/:id', function(req, res, next) {
     var id = req.params.id;
