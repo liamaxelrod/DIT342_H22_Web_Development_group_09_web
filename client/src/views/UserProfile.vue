@@ -34,7 +34,7 @@
                 type="text"
                 id="name"
                 v-model="schedule.name"
-                placeholder="Schedule Name"
+                placeholder="Schedule name"
                 required
                 unique
               />
@@ -107,12 +107,13 @@ export default {
   methods: {
     async createSchedule() {
       const res = await Api.post('/schedules', {
+        // SchedulingSubmit.cells
         name: this.schedule.name
       })
       if (res.status === 201) {
         this.$router.push('/SchedulingSubmit')
       } else if (res.status === 400) {
-        alert('Schedule name already exists')
+        alert('Schedule scheduleName already exists')
       }
     }
     /*

@@ -3,8 +3,9 @@ var router = express.Router();
 var Schedule = require('../models/schedule');
 
 //create schedule
-router.post('/api/schedules', function(req, res, next){
-    var schedule = new Schedule(req.body);
+router.post('/api/scheduales', function(req, res, next){
+    var schedule = new Schedule(req.body);  // gets only what's in the object
+    schedule.cells = req.body            // gets the entire object
     schedule.save(function(err, schedule) {
         if (err) { return next(err); }
         res.status(201).json(schedule);
@@ -12,37 +13,34 @@ router.post('/api/schedules', function(req, res, next){
 });
 
 //get schedule
-router.get('/api/schedules', function(req, res, next) {
+router.get('/api/schedules', function (req, res, next) {
     Schedule.find(function(err, schedules) {
         if (err) { return next(err); }
         res.json({'schedules': schedules });
     });
 });
 
-//get this it schedule
-router.get('/api/schedules/:id', function(req, res, next) {
-    var id = req.params.id;
-    Schedule.findById(id, function(err, schedule) {
-        if (err) { return next(err); }
-        if (schedule === null) {
-            return res.status(404).json({'message': 'schedule not found!'});
-        }
-        res.json(schedule);
-    });
-});
+// TA
+// Schedule.find().then((result) => {
+//         if(result === null) 
+//         {
+//              res.status(404).send('sth');
+//         }
+//     res.json(result);
+//     }
+//     ).catch((err) => {
+//         res.status(404).send();
+//     return next(err);})
+//     })//g
 
-//put a new schedule in an old one
-router.put('/api/schedules/:id', function(req, res, next) {
+router.get('/api/camels/:id', function(req, res, next) {
     var id = req.params.id;
-    Schedule.findById(id, function(err, schedule) {
+    Camel.findById(id, function(err, camel) {
         if (err) { return next(err); }
-        if (schedule == null) {
-            return res.status(404).json({"message": "schedule not found"});
+        if (camel === null) {
+            return res.status(404).json({'message': 'Camel not found!'});
         }
-        schedule.color = req.body.color;
-        schedule.position = req.body.position;
-        schedule.save();
-        res.json(schedule);
+        res.json(camel);
     });
 });
 
@@ -55,8 +53,9 @@ router.patch('/api/schedules/:id', function(req, res, next) {
             return res.status(404).json(
 {"message": "schedule not found"});
         }
-        schedule.color = (req.body.color || schedule.color);
-        schedule.position = (req.body.position || schedule.position);
+        schedule.monday.cellsRo.state = (req.body.monday.cellsRo.state || schedule.monday.cellsRo.state);
+        console.log(schedule.monday.cellsRo.state + "aaa")
+        // schedule.position = (req.body.position || schedule.position);
         schedule.save();
         res.json(schedule);
     });

@@ -3,10 +3,16 @@ var Schema = mongoose.Schema;
 
 //will be altered depending on the front is structured
 var scheduleSchema = new Schema({
-  name: { type: String, required: true, unique: true },
-  month: { type: Number },
-  day: { type: Number },
-  availability: { type: Boolean },
+    owner: '',
+    name: { type: String, required: true, unique: true },
+    cells: Object
+    // monday: Object,
+    // tuesday: Object,
+    // wednesday: Object,
+    // thursday: Object,
+    // friday: Object,
+    // saturday: Object,
+    // sunday: Object
 });
 
 module.exports = mongoose.model("schedules", scheduleSchema);
