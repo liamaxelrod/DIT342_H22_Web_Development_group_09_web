@@ -101,11 +101,14 @@
     </div>
     <div>
       <button @click="handleSubmet()">submit</button>
+      <p></p>
       <button @click="handlePatch()">Patch</button>
-      <button @click="handlePut()">put</button>
       <button @click="handleGitAll()">GitAll</button>
+      <p></p>
       <button @click="handleGitOne()">GitOne</button>
+      <p></p>
       <button @click="handleDelete()">delete</button>
+      <p></p>
     </div>
   </div>
 </template>
@@ -232,10 +235,6 @@ export default {
       Api.patch('/schedules', this.cells)// ??
       console.log('click')
     },
-    handlePut() {
-      Api.put('/schedules', this.cells)// ??
-      console.log('click')
-    },
     handleGitAll() {
       const response = Api.get('/schedules').then(res => {
         return res.data
@@ -246,17 +245,22 @@ export default {
     async handleGitOne() {
       // const response = await Api.get('/schedules')
 
-      const response = Api.get('/schedules').then(res => {
-        return res.data
-      }).then(console.log)
-      console.log(response)
+      Api.get('/schedules').then(response => { // <<<<gold>>>>
+        console.log(this.cells.scheduleName + '1')
+        for (let i = 0; i < response.length; i++) {
+          console.log(response + '2')
+          const element = this.cells[i]
+          console.log(element + '3')
+        }
+      })
+      // console.log(response)
 
-      // console.log(response.data)
-      for (let i = 0; i < response.length; i++) {
-        console.log(response + 'zzz')
-        const element = response.schedules[i]
-        console.log(element + 'aaa')
-      }
+      // // console.log(response.data)
+      // for (let i = 0; i < response.length; i++) {
+      //   console.log(response + 'zzz')
+      //   const element = response[i]
+      //   console.log(element + 'aaa')
+      // }
       // Api.get('/schedules', this.cells)// ??
     },
     handleDelete() {

@@ -17,7 +17,6 @@ router.get('/api/schedules', function (req, res, next) {
     Schedule.find(function(err, schedules) {
         if (err) { return next(err); }
         res.json({'schedules': schedules });
-
     });
 });
 
@@ -33,6 +32,17 @@ router.get('/api/schedules', function (req, res, next) {
 //         res.status(404).send();
 //     return next(err);})
 //     })//g
+
+router.get('/api/camels/:id', function(req, res, next) {
+    var id = req.params.id;
+    Camel.findById(id, function(err, camel) {
+        if (err) { return next(err); }
+        if (camel === null) {
+            return res.status(404).json({'message': 'Camel not found!'});
+        }
+        res.json(camel);
+    });
+});
 
 //Patchin existing schedule with new parameters
 router.patch('/api/schedules/:id', function(req, res, next) {
