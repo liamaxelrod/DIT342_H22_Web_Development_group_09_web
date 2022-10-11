@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 //will be altered depending on the front is structured
@@ -15,4 +15,4 @@ var scheduleSchema = new Schema({
     // sunday: Object
 });
 
-module.exports = mongoose.model('schedules', scheduleSchema);
+module.exports = mongoose.model("schedules", scheduleSchema);

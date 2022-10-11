@@ -3,7 +3,7 @@ var router = express.Router();
 var Schedule = require('../models/schedule');
 
 //create schedule
-router.post('/api/schedules', function(req, res, next){
+router.post('/api/scheduales', function(req, res, next){
     var schedule = new Schedule(req.body);  // gets only what's in the object
     schedule.cells = req.body            // gets the entire object
     schedule.save(function(err, schedule) {
@@ -62,7 +62,8 @@ router.patch('/api/schedules/:id', function(req, res, next) {
 });
 
 //delete schedule
-router.delete('/api/schedules/:id', function(req, res, next) {
+/*
+router.delete('/api/schedules/:name', function(req, res, next) {
     var id = req.params.id;
     Schedule.findOneAndDelete({_id: id}, function(err, schedule) {
         if (err) { return next(err); }
@@ -72,6 +73,7 @@ router.delete('/api/schedules/:id', function(req, res, next) {
         res.json(schedule);
     });
 });
+*/
 
 module.exports = router;
 
