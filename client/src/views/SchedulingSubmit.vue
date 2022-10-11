@@ -220,8 +220,10 @@ export default {
     },
     async handleSubmet() {
       // this is one way of doing a async call
+      console.log('click1', this.cells)
       const res = await Api.post('/schedules', this.cells)
       console.log(res.data)
+      console.log('click2')
       // this is the exact same way but syntactic sugar
       // Api.post('/schedules', this.cells).then(res => {
       //   console.log(res.data)
@@ -245,7 +247,7 @@ export default {
     async handleGitOne() {
       // const response = await Api.get('/schedules')
 
-      Api.get('/schedules').then(response => { // <<<<gold>>>>
+      Api.get('/schedules').then(response => { // <<<<gold -> lie>>>>
         console.log(this.cells.scheduleName + '1')
         for (let i = 0; i < response.length; i++) {
           console.log(response + '2')

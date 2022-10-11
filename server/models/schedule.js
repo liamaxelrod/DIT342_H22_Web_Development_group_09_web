@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 //will be altered depending on the front is structured
 var scheduleSchema = new Schema({
     owner: '',
-    name: { type: String, required: true, unique: true },
+    scheduleName: '',
     cells: Object
     // monday: Object,
     // tuesday: Object,

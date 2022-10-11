@@ -2,10 +2,12 @@ var express = require('express');
 var router = express.Router();
 var Schedule = require('../models/schedule');
 
+
 //create schedule
-router.post('/api/scheduales', function(req, res, next){
+router.post('/api/schedules', function(req, res, next){
     var schedule = new Schedule(req.body);  // gets only what's in the object
-    schedule.cells = req.body            // gets the entire object
+    schedule.cells = req.body               // gets the entire object
+    console.log('click')
     schedule.save(function(err, schedule) {
         if (err) { return next(err); }
         res.status(201).json(schedule);

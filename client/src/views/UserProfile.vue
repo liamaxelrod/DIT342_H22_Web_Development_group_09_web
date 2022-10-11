@@ -33,7 +33,7 @@
               <input
                 type="text"
                 id="name"
-                v-model="schedule.name"
+                v-model="cells.scheduleName"
                 placeholder="Schedule name"
                 required
                 unique
@@ -90,6 +90,7 @@
 <script>
 import { Api } from '../Api'
 import Modal from './Modal.vue'
+// import SchedulingSubmit from './SchedulingSubmit'
 export default {
   name: 'UserProfile',
   components: {
@@ -101,15 +102,73 @@ export default {
       deleteModal: false,
       schedule: {
         name: ''
+      },
+      cells: {
+        owner: '',
+        scheduleName: '',
+        monday: {
+          cellsRo: Array.from({ length: 24 }, (_, i) => ({
+            state: 0,
+            id: i,
+            string: '',
+            day: 1
+          }))
+        },
+        tuesday: {
+          cellsRo: Array.from({ length: 24 }, (_, i) => ({
+            state: 0,
+            id: i,
+            string: '',
+            day: 2
+          }))
+        },
+        wednesday: {
+          cellsRo: Array.from({ length: 24 }, (_, i) => ({
+            state: 0,
+            id: i,
+            string: '',
+            day: 3
+          }))
+        },
+        thursday: {
+          cellsRo: Array.from({ length: 24 }, (_, i) => ({
+            state: 0,
+            id: i,
+            string: '',
+            day: 4
+          }))
+        },
+        friday: {
+          cellsRo: Array.from({ length: 24 }, (_, i) => ({
+            state: 0,
+            id: i,
+            string: '',
+            day: 5
+          }))
+        },
+        saturday: {
+          cellsRo: Array.from({ length: 24 }, (_, i) => ({
+            state: 0,
+            id: i,
+            string: '',
+            day: 6
+          }))
+        },
+        sunday: {
+          cellsRo: Array.from({ length: 24 }, (_, i) => ({
+            state: 0,
+            id: i,
+            string: '',
+            day: 7
+          }))
+        }
       }
     }
   },
   methods: {
     async createSchedule() {
-      const res = await Api.post('/schedules', {
-        // SchedulingSubmit.cells
-        name: this.schedule.name
-      })
+      const res = await Api.post('/schedules', this.cells)
+      console.log(res.data)
       if (res.status === 201) {
         this.$router.push('/SchedulingSubmit')
       } else if (res.status === 400) {
