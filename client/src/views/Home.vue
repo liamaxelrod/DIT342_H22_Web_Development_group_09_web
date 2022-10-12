@@ -53,6 +53,7 @@ export default {
       Api.get('/users').then(r => {
         // search r.data.users for the username
         const arr = r.data.users
+        console.log(arr)
         for (let i = 0; i < arr.length; i++) {
           if (arr[i].username === u) {
             // username found

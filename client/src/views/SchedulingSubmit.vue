@@ -3,7 +3,7 @@
     <div class="aaa">
       <table class="table1">
         <tr>
-          <th ></th>
+          <th id="title">{{title}}</th>
           <th>1:00</th>
           <th>2:00</th>
           <th>3:00</th>
@@ -100,15 +100,20 @@
       </table>
     </div>
     <div>
-      <button @click="handleSubmet()">submit</button>
+      <div>
+        <button @click="handleSubmet()">submit</button>
       <p></p>
+      </div>
       <button @click="handlePatch()">Patch</button>
-      <button @click="handleGitAll()">GitAll</button>
-      <p></p>
-      <button @click="handleGitOne()">GitOne</button>
-      <p></p>
-      <button @click="handleDelete()">delete</button>
-      <p></p>
+      <button @click="handleGetAll()">GetAll</button>
+      <div>
+        <br><input type="text" id="getNewSchedule" v-model="getNewSchedule" placeholder="schedule name"/><br/>
+        <button @click="handleGetOne()">GetOne</button>
+        <p></p>
+      </div>
+      <div>
+        <button @click="returnToProfile()">return</button>
+      </div>
     </div>
   </div>
 </template>
@@ -119,9 +124,10 @@ export default {
   name: 'schedulingSubmit',
   data() {
     return {
+      getNewSchedule: '',
       cells: {
-        owner: 'liam',
-        scheduleName: 'week 2',
+        owner: '',
+        scheduleName: '',
         monday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
             state: 0,
@@ -237,37 +243,38 @@ export default {
       Api.patch('/schedules', this.cells)// ??
       console.log('click')
     },
-    handleGitAll() {
+    handleGetAll() {
       const response = Api.get('/schedules').then(res => {
         return res.data
       })
       console.log(response)
       // pending promise
     },
-    async handleGitOne() {
-      // const response = await Api.get('/schedules')
-
-      Api.get('/schedules').then(response => { // <<<<gold -> lie>>>>
-        console.log(this.cells.scheduleName + '1')
-        for (let i = 0; i < response.length; i++) {
-          console.log(response + '2')
-          const element = this.cells[i]
-          console.log(element + '3')
+    async handleGetOne() {
+      Api.get('/schedules').then(response => {
+        const arr = response.data.schedules
+        for (let i = 0; i < arr.length; i++) {
+          const element = arr[i].scheduleName
+          if (this.getNewSchedule === element) {
+            const cellId = arr[i]._id
+            Api.get('/schedules/' + cellId).then(resCell => {
+              this.cells = resCell.data.cells
+              const newCell = resCell.data.cells
+              console.log(newCell)
+              console.log(this.cells)
+              console.log(resCell.data)
+            }
+            )
+          }
         }
       })
-      // console.log(response)
-
-      // // console.log(response.data)
-      // for (let i = 0; i < response.length; i++) {
-      //   console.log(response + 'zzz')
-      //   const element = response[i]
-      //   console.log(element + 'aaa')
-      // }
-      // Api.get('/schedules', this.cells)// ??
     },
-    handleDelete() {
-      Api.delete('/schedules', this.cells)// ??
-      console.log('click')
+    returnToProfile() {
+    }
+  },
+  computed: {
+    title: function () {
+      return this.cells.scheduleName
     }
   }
 }

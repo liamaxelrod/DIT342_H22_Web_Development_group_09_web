@@ -35,14 +35,14 @@ router.get('/api/schedules', function (req, res, next) {
 //     return next(err);})
 //     })//g
 
-router.get('/api/camels/:id', function(req, res, next) {
+router.get('/api/schedules/:id', function(req, res, next) {
     var id = req.params.id;
-    Camel.findById(id, function(err, camel) {
+    Schedule.findById(id, function(err, schedules) {
         if (err) { return next(err); }
-        if (camel === null) {
+        if (schedules === null) {
             return res.status(404).json({'message': 'Camel not found!'});
         }
-        res.json(camel);
+        res.json(schedules);
     });
 });
 
@@ -64,8 +64,8 @@ router.patch('/api/schedules/:id', function(req, res, next) {
 });
 
 //delete schedule
-/*
-router.delete('/api/schedules/:name', function(req, res, next) {
+router.delete('/api/schedules/:id', function(req, res, next) {
+    console.log('1')
     var id = req.params.id;
     Schedule.findOneAndDelete({_id: id}, function(err, schedule) {
         if (err) { return next(err); }
@@ -75,7 +75,7 @@ router.delete('/api/schedules/:name', function(req, res, next) {
         res.json(schedule);
     });
 });
-*/
+
 
 module.exports = router;
 

@@ -52,9 +52,13 @@
           <th>DELETE A SCHEDULE</th>
           <tr>
             <div>
-              <input type="text" placeholder="Schedule Name" required />
+              <input
+              type="text"
+              v-model="cells.scheduleName"
+              placeholder="Schedule Name"
+              required />
             </div>
-            <button @click="deleteModal" class="btnUser">
+            <button class="btnUser" @click="deleteSchedule">
               Delete Schedule
             </button>
           </tr>
@@ -90,7 +94,6 @@
 <script>
 import { Api } from '../Api'
 import Modal from './Modal.vue'
-// import SchedulingSubmit from './SchedulingSubmit'
 export default {
   name: 'UserProfile',
   components: {
@@ -174,18 +177,20 @@ export default {
       } else if (res.status === 400) {
         alert('Schedule scheduleName already exists')
       }
-    }
-    /*
+    },
     async deleteSchedule() {
-      console.log(this.name)
-      console.log('click')
-      const res = await Api.delete('/schedules/:name', {
-        name: this.schedule.name
+      Api.get('/schedules').then(response => {
+        const arr = response.data.schedules
+        for (let i = 0; i < arr.length; i++) {
+          const element = arr[i].scheduleName
+          if (this.cells.scheduleName === element) {
+            const id = arr[i]._id
+            console.log(id)
+            Api.delete('/schedules/' + id).then(console.log)
+          }
+        }
       })
-      if (res.status === 201) {
-        this.$router.push('/UserProfile')
-      }
-    } */
+    }
   }
 }
 </script>
