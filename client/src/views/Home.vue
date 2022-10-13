@@ -60,6 +60,7 @@ export default {
             if (arr[i].password === p) {
               // password correct
               console.log('login successful')
+              localStorage.setItem('currentUser', JSON.stringify(arr[i]))
               // redirect to profile page
               this.$router.push('/profile')
             } else {

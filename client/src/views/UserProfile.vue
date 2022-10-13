@@ -16,12 +16,20 @@
         </button>
       </div>
       <div class>
-        <p>Username</p>
-        <p>Name</p>
-        <p>Email</p>
+        <p>
+          <a v-if="currentUser">{{ currentUser.username }}</a>
+        </p>
+        <p>
+          <a v-if="currentUser">{{ currentUser.name }}</a>
+        </p>
+        <p>
+          <a v-if="currentUser">{{ currentUser.email }}</a>
+        </p>
       </div>
       <div>
-        <button class="btnUser" id="logoutbtn">log out</button>
+        <button class="btnUser" id="logoutbtn" @click="logout()">
+          log out
+        </button>
       </div>
     </div>
     <div class="right">
@@ -30,14 +38,21 @@
           <th>CREATE A SCHEDULE</th>
           <tr>
             <div>
-              <input
-                type="text"
-                id="name"
-                v-model="cells.scheduleName"
-                placeholder="Schedule name"
-                required
-                unique
-              />
+              <div>
+                <input
+                  type="text"
+                  id="scheduleName"
+                  v-model="cells.scheduleName"
+                  placeholder="Schedule name"
+                  required
+                  unique
+                />
+              </div>
+              <div v-if="invalidScheduleName">
+                <h3 style="color: red">
+                  Invalid schedule name! Name cannot be empty or a duplicate!
+                </h3>
+              </div>
             </div>
             <div>
               <button class="btnUser" @click="createSchedule()">
@@ -77,7 +92,6 @@
         <template #slot3>
           <button id="removebtn">REMOVE PHOTO</button>
         </template>
-        <template #slot4> </template>
       </modal>
     </div>
     <div>
@@ -103,9 +117,8 @@ export default {
     return {
       pictureModal: false,
       deleteModal: false,
-      schedule: {
-        name: ''
-      },
+      invalidScheduleName: false,
+      currentUser: {},
       cells: {
         owner: '',
         scheduleName: '',
@@ -168,15 +181,24 @@ export default {
       }
     }
   },
+  mounted() {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+    this.cells.owner = this.currentUser.username
+  },
   methods: {
     async createSchedule() {
       const res = await Api.post('/schedules', this.cells)
       console.log(res.data)
       if (res.status === 201) {
         this.$router.push('/SchedulingSubmit')
-      } else if (res.status === 400) {
-        alert('Schedule scheduleName already exists')
+        this.invalidScheduleName = false
+      } else if (res.status === 500) {
+        this.invalidScheduleName = true
       }
+    },
+    logout() {
+      localStorage.removeItem('currentUser')
+      this.$router.push('/')
     },
     async deleteSchedule() {
       Api.get('/schedules').then(response => {
@@ -197,7 +219,7 @@ export default {
 
 <style>
 input[type='text'],
-input[type='name'] {
+input[type='scheduleName'] {
   width: 27%;
   margin: 5px 0 10px 0;
   display: inline-block;
