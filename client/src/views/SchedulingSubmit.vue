@@ -205,6 +205,8 @@ export default {
         currentCell.state = 0
       }
     },
+    colorChange() {
+    },
     findDay(day, index) {
       let currentCell = {}
       if (day === 1) {
@@ -259,10 +261,6 @@ export default {
             const cellId = arr[i]._id
             Api.get('/schedules/' + cellId).then(resCell => {
               this.cells = resCell.data.cells
-              const newCell = resCell.data.cells
-              console.log(newCell)
-              console.log(this.cells)
-              console.log(resCell.data)
             }
             )
           }
