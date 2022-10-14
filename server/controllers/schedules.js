@@ -45,7 +45,7 @@ router.get('/api/schedules/:id', function(req, res, next) {
         res.json(schedules);
     });
 });
-
+// 
 //Patchin existing schedule with new parameters
 router.patch('/api/schedules/:id', function(req, res, next) {
     var id = req.params.id;
