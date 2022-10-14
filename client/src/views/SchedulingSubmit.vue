@@ -33,7 +33,7 @@
           <!-- loop through cells and create a TableCell for each -->
           <!--
              0, 1, 2, ...
-            [{ state: 0 }, { state: 0 }, { state: 0 }, ...]
+            [{ cellState: 0 }, { cellState: 0 }, { cellState: 0 }, ...]
           -->
           <td>Monday</td>
           <td
@@ -41,7 +41,9 @@
             :key="cell.id"
             :cell="cell"
             @click="handleClick($event, cell)"
-          ></td>
+            v-bind:style= "[cell.cellState === 1 ? {'backgroundColor': 'green'} : cell.cellState === 2 ? {'backgroundColor': 'red'} : {'backgroundColor': 'white'}]"
+          >{{cell.cellState}} {{cell.string}}
+        </td>
         </tr>
         <tr>
           <td>Tuesday</td>
@@ -50,7 +52,8 @@
             :key="cell.id"
             :cell="cell"
             @click="handleClick($event, cell)"
-          ></td>
+          >{{cell.cellState}}
+        </td>
         </tr>
         <tr>
           <td>Wednesday</td>
@@ -122,23 +125,44 @@
 import { Api } from '@/Api'
 export default {
   name: 'schedulingSubmit',
+  mounted() {
+    console.log('hi')
+    // Api.get('/schedules').then(response => {
+    //   const arr = response.data.schedules
+    //   for (let i = 0; i < arr.length; i++) {
+    //     const element = arr[i].scheduleName
+    //     if (this.$route.params.name === element) {
+    //       const cellId = arr[i]._id
+    //       Api.get('/schedules/' + cellId).then(resCell => {
+    //         this.cells = resCell.data.cells
+    //         console.log(resCell.data.cells)
+    //         // location.reload()
+    //         // this.$router.push('/SchedulingSubmit')
+    //       }
+    //       )
+    //     }
+    //   }
+    // })
+  },
   data() {
     return {
       getNewSchedule: '',
       cells: {
         owner: '',
+        GuestName: 'jason',
         scheduleName: '',
         monday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            state: 0,
+            cellState: 0,
             id: i,
             string: '',
-            day: 1
+            day: 1,
+            color: null
           }))
         },
         tuesday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            state: 0,
+            cellState: 0,
             id: i,
             string: '',
             day: 2
@@ -146,7 +170,7 @@ export default {
         },
         wednesday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            state: 0,
+            cellState: 0,
             id: i,
             string: '',
             day: 3
@@ -154,7 +178,7 @@ export default {
         },
         thursday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            state: 0,
+            cellState: 0,
             id: i,
             string: '',
             day: 4
@@ -162,7 +186,7 @@ export default {
         },
         friday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            state: 0,
+            cellState: 0,
             id: i,
             string: '',
             day: 5
@@ -170,7 +194,7 @@ export default {
         },
         saturday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            state: 0,
+            cellState: 0,
             id: i,
             string: '',
             day: 6
@@ -178,7 +202,7 @@ export default {
         },
         sunday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            state: 0,
+            cellState: 0,
             id: i,
             string: '',
             day: 7
@@ -194,21 +218,22 @@ export default {
       // figure out what day <console.log('path---' + cell.day)>
       const currentCell = this.findDay(cell.day, index)
       // change the color of the cell
-      if (currentCell.state === 0) {
-        event.target.style.backgroundColor = 'green'
-        currentCell.state = 1
-      } else if (currentCell.state === 1) {
-        event.target.style.backgroundColor = 'red'
-        currentCell.state = 2
+      if (currentCell.cellState === 0) {
+        // event.target.style.backgroundColor = 'green'
+        currentCell.cellState = 1
+      } else if (currentCell.cellState === 1) {
+        // event.target.style.backgroundColor = 'red'
+        currentCell.cellState = 2
       } else {
-        event.target.style.backgroundColor = 'white'
-        currentCell.state = 0
+        // event.target.style.backgroundColor = 'white'
+        currentCell.cellState = 0
       }
     },
     colorChange() {
     },
     findDay(day, index) {
       let currentCell = {}
+      index = index - 1 // it works
       if (day === 1) {
         currentCell = this.cells.monday.cellsRo[index]
       } else if (day === 2) {
@@ -261,13 +286,16 @@ export default {
             const cellId = arr[i]._id
             Api.get('/schedules/' + cellId).then(resCell => {
               this.cells = resCell.data.cells
-            }
-            )
+              console.log(resCell.data.cells)
+              // location.reload()
+              // this.$router.push('/SchedulingSubmit')
+            })
           }
         }
       })
     },
     returnToProfile() {
+      this.$router.push('/profile')
     }
   },
   computed: {

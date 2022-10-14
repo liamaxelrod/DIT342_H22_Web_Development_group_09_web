@@ -43,7 +43,7 @@
                   type="text"
                   id="scheduleName"
                   v-model="cells.scheduleName"
-                  placeholder="Schedule name"
+                  placeholder="Schedule Name"
                   required
                   unique
                 />
@@ -62,6 +62,23 @@
           </tr>
         </table>
       </div>
+      <div class="middle">
+        <table>
+          <th>SELETECT A SCHEDULE</th>
+          <tr>
+            <div>
+              <input
+              type="text"
+              v-model="selectScheduleName"
+              placeholder="Schedule Name"
+              required />
+            </div>
+            <button class="btnUser" @click="selectSchedule">
+              select a schedule
+            </button>
+          </tr>
+        </table>
+      </div>
       <div class="bottom">
         <table>
           <th>DELETE A SCHEDULE</th>
@@ -69,7 +86,7 @@
             <div>
               <input
               type="text"
-              v-model="cells.scheduleName"
+              v-model="deleteScheduleName"
               placeholder="Schedule Name"
               required />
             </div>
@@ -119,6 +136,8 @@ export default {
       deleteModal: false,
       invalidScheduleName: false,
       currentUser: {},
+      deleteScheduleName: '',
+      selectScheduleName: '',
       cells: {
         owner: '',
         scheduleName: '',
@@ -200,15 +219,34 @@ export default {
       localStorage.removeItem('currentUser')
       this.$router.push('/')
     },
+    async selectSchedule() {
+      Api.get('/schedules').then(response => {
+        const arr = response.data.schedules
+        for (let i = 0; i < arr.length; i++) {
+          const element = arr[i].scheduleName
+          if (this.selectScheduleName === element) {
+            console.log('aaa')
+            const cellId = arr[i]._id
+            Api.get('/schedules/' + cellId).then(resCell => {
+              // this.cells = resCell.data.cells
+              this.$router.push('/SchedulingSubmit')
+            }
+            )
+          }
+        }
+      })
+    },
     async deleteSchedule() {
       Api.get('/schedules').then(response => {
         const arr = response.data.schedules
         for (let i = 0; i < arr.length; i++) {
           const element = arr[i].scheduleName
-          if (this.cells.scheduleName === element) {
+          if (this.deleteScheduleName === element) {
             const id = arr[i]._id
             console.log(id)
             Api.delete('/schedules/' + id).then(console.log)
+            this.deleteScheduleName = ''
+            break
           }
         }
       })
