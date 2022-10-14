@@ -1,9 +1,9 @@
-<template>
+§<template>
   <div id="backchangewhite">
     <div class="aaa">
       <table class="table1">
         <tr>
-          <th id="title">{{title}}</th>
+          <th id="title">{{cells.scheduleName}}</th>
           <th>1:00</th>
           <th>2:00</th>
           <th>3:00</th>
@@ -127,29 +127,18 @@ export default {
   name: 'schedulingSubmit',
   mounted() {
     console.log('hi')
-    // Api.get('/schedules').then(response => {
-    //   const arr = response.data.schedules
-    //   for (let i = 0; i < arr.length; i++) {
-    //     const element = arr[i].scheduleName
-    //     if (this.$route.params.name === element) {
-    //       const cellId = arr[i]._id
-    //       Api.get('/schedules/' + cellId).then(resCell => {
-    //         this.cells = resCell.data.cells
-    //         console.log(resCell.data.cells)
-    //         // location.reload()
-    //         // this.$router.push('/SchedulingSubmit')
-    //       }
-    //       )
-    //     }
-    //   }
-    // })
+    Api.get('/users/' + this.$route.params.userId + '/schedules/' + this.$route.params.scheduleName).then(response => {
+      // this.cells.scheduleName = response.data
+      console.log(response.data)
+      this.cells.scheduleName = response.data.scheduleName
+    })
   },
   data() {
     return {
       getNewSchedule: '',
       cells: {
         owner: '',
-        GuestName: 'jason',
+        GuestName: '',
         scheduleName: '',
         monday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({

@@ -206,10 +206,9 @@ export default {
   },
   methods: {
     async createSchedule() {
-      const res = await Api.post('/schedules', this.cells)
-      console.log(res.data)
+      const res = await Api.post('users/' + this.currentUser._id + '/schedules', this.cells)
       if (res.status === 201) {
-        this.$router.push('/SchedulingSubmit')
+        this.$router.push('/SchedulingSubmit/' + this.currentUser._id + '/schedules/' + this.cells.scheduleName)
         this.invalidScheduleName = false
       } else if (res.status === 500) {
         this.invalidScheduleName = true
