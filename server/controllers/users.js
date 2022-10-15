@@ -31,7 +31,6 @@ router.get("/api/users", function (req, res, next) {
 });
 
 //  Gets a user with the requested username
-
 router.get("/api/users/:username", function (req, res, next) {
   const username = req.params.username;
 
@@ -44,6 +43,18 @@ router.get("/api/users/:username", function (req, res, next) {
     }
     res.json(user);
   });
+
+// find user by ID // don't know this will work with the other get method existing above
+router.get('/api/users/:id', function(req, res, next) {
+  var id = req.params.id;
+  User.findById(id, function(err, User) {
+      if (err) { return next(err); }
+      if (User === null) {
+          return res.status(404).json({'message': 'User not found!'});
+      }
+      res.json(User);
+  });
+});
 
   // User.findById(username, function(err, user) {
   //     if (err) { return next(err); }
@@ -134,6 +145,7 @@ router.put("/api/users/:username", function (req, res, next) {
 router.post(
   "/api/users/:username/schedules", function (req, res, next) {
     const schedule = new Schedule(req.body)
+    schedule.cells = req.body
     const userId = req.params["username"]
     schedule.save()
     User.findByIdAndUpdate(userId, {$push : {schedule: schedule._id}}).then((result) => {

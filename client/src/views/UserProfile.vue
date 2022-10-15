@@ -55,7 +55,7 @@
               </div>
             </div>
             <div>
-              <button class="btnUser" @click="createSchedule()">
+              <button class="btnUser" @click="checkIfExists">
                 Create Schedule
               </button>
             </div>
@@ -132,6 +132,7 @@ export default {
   },
   data() {
     return {
+      scheduleNameExists: false,
       pictureModal: false,
       deleteModal: false,
       invalidScheduleName: false,
@@ -139,61 +140,60 @@ export default {
       deleteScheduleName: '',
       selectScheduleName: '',
       cells: {
-        owner: '',
         scheduleName: '',
         monday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            state: 0,
+            cellState: 0,
             id: i,
-            string: '',
+            string: [],
             day: 1
           }))
         },
         tuesday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            state: 0,
+            cellState: 0,
             id: i,
-            string: '',
+            string: [],
             day: 2
           }))
         },
         wednesday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            state: 0,
+            cellState: 0,
             id: i,
-            string: '',
+            string: [],
             day: 3
           }))
         },
         thursday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            state: 0,
+            cellState: 0,
             id: i,
-            string: '',
+            string: [],
             day: 4
           }))
         },
         friday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            state: 0,
+            cellState: 0,
             id: i,
-            string: '',
+            string: [],
             day: 5
           }))
         },
         saturday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            state: 0,
+            cellState: 0,
             id: i,
-            string: '',
+            string: [],
             day: 6
           }))
         },
         sunday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            state: 0,
+            cellState: 0,
             id: i,
-            string: '',
+            string: [],
             day: 7
           }))
         }
@@ -214,9 +214,23 @@ export default {
         this.invalidScheduleName = true
       }
     },
-    logout() {
-      localStorage.removeItem('currentUser')
-      this.$router.push('/')
+    checkIfExists() {
+      // this.createSchedule()
+      Api.get('/schedules').then(response => {
+        const arr = response.data.schedules
+        for (let i = 0; i < arr.length; i++) {
+          const element = arr[i].scheduleName
+          if (this.cells.scheduleName === element) {
+            this.scheduleNameExists = true
+          }
+        }
+        if (this.scheduleNameExists) {
+          this.scheduleNameExists = false
+        } else {
+          this.scheduleNameExists = false
+          this.createSchedule()
+        }
+      })
     },
     async selectSchedule() {
       Api.get('/schedules').then(response => {
@@ -224,11 +238,10 @@ export default {
         for (let i = 0; i < arr.length; i++) {
           const element = arr[i].scheduleName
           if (this.selectScheduleName === element) {
-            console.log('aaa')
             const cellId = arr[i]._id
             Api.get('/schedules/' + cellId).then(resCell => {
-              // this.cells = resCell.data.cells
-              this.$router.push('/SchedulingSubmit')
+              this.cells = resCell.data.cells
+              this.$router.push('/SchedulingSubmit/' + this.currentUser._id + '/schedules/' + this.cells.scheduleName)
             }
             )
           }
@@ -249,6 +262,10 @@ export default {
           }
         }
       })
+    },
+    logout() {
+      localStorage.removeItem('currentUser')
+      this.$router.push('/')
     }
   }
 }

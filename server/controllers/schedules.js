@@ -22,19 +22,6 @@ router.get('/api/schedules', function (req, res, next) {
     });
 });
 
-// TA
-// Schedule.find().then((result) => {
-//         if(result === null) 
-//         {
-//              res.status(404).send('sth');
-//         }
-//     res.json(result);
-//     }
-//     ).catch((err) => {
-//         res.status(404).send();
-//     return next(err);})
-//     })//g
-
 router.get('/api/schedules/:id', function(req, res, next) {
     var id = req.params.id;
     Schedule.findById(id, function(err, schedules) {
@@ -50,13 +37,14 @@ router.get('/api/schedules/:id', function(req, res, next) {
 router.patch('/api/schedules/:id', function(req, res, next) {
     var id = req.params.id;
     Schedule.findById(id, function(err, schedule) {
+        console.log('start ' + schedule + " end")
         if (err) { return next(err); }
         if (schedule == null) {
             return res.status(404).json(
-{"message": "schedule not found"});
+            {"message": "schedule not found"});
         }
         schedule.monday.cellsRo.state = (req.body.monday.cellsRo.state || schedule.monday.cellsRo.state);
-        console.log(schedule.monday.cellsRo.state + "aaa")
+        console.log('start ' + schedule + " end")
         // schedule.position = (req.body.position || schedule.position);
         schedule.save();
         res.json(schedule);

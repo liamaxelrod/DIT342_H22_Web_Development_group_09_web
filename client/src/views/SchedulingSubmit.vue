@@ -52,6 +52,7 @@
             :key="cell.id"
             :cell="cell"
             @click="handleClick($event, cell)"
+            v-bind:style= "[cell.cellState === 1 ? {'backgroundColor': 'green'} : cell.cellState === 2 ? {'backgroundColor': 'red'} : {'backgroundColor': 'white'}]"
           >{{cell.cellState}}
         </td>
         </tr>
@@ -103,20 +104,8 @@
       </table>
     </div>
     <div>
-      <div>
-        <button @click="handleSubmet()">submit</button>
-      <p></p>
-      </div>
-      <button @click="handlePatch()">Patch</button>
-      <button @click="handleGetAll()">GetAll</button>
-      <div>
-        <br><input type="text" id="getNewSchedule" v-model="getNewSchedule" placeholder="schedule name"/><br/>
-        <button @click="handleGetOne()">GetOne</button>
-        <p></p>
-      </div>
-      <div>
-        <button @click="returnToProfile()">return</button>
-      </div>
+      <button @click="handlePatch()">Save</button>
+      <button @click="returnToProfile()">return</button>
     </div>
   </div>
 </template>
@@ -129,75 +118,17 @@ export default {
     console.log('hi')
     Api.get('/users/' + this.$route.params.userId + '/schedules/' + this.$route.params.scheduleName).then(response => {
       // this.cells.scheduleName = response.data
-      console.log(response.data)
-      this.cells.scheduleName = response.data.scheduleName
+      console.log(this.$route.params.userId)
+      // this.useThisSchedule(response.data.scheduleName)
+      this.cells = response.data.cells // this works but cells must be in at the object
+      // this.guestName = response.data
+      // console.log(this.guestName)
     })
   },
   data() {
     return {
-      getNewSchedule: '',
-      cells: {
-        owner: '',
-        GuestName: '',
-        scheduleName: '',
-        monday: {
-          cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            cellState: 0,
-            id: i,
-            string: '',
-            day: 1,
-            color: null
-          }))
-        },
-        tuesday: {
-          cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            cellState: 0,
-            id: i,
-            string: '',
-            day: 2
-          }))
-        },
-        wednesday: {
-          cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            cellState: 0,
-            id: i,
-            string: '',
-            day: 3
-          }))
-        },
-        thursday: {
-          cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            cellState: 0,
-            id: i,
-            string: '',
-            day: 4
-          }))
-        },
-        friday: {
-          cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            cellState: 0,
-            id: i,
-            string: '',
-            day: 5
-          }))
-        },
-        saturday: {
-          cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            cellState: 0,
-            id: i,
-            string: '',
-            day: 6
-          }))
-        },
-        sunday: {
-          cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            cellState: 0,
-            id: i,
-            string: '',
-            day: 7
-          }))
-        }
-      }
+      cells: Object,
+      GuestName: ''
     }
   },
   methods: {
@@ -207,6 +138,7 @@ export default {
       // figure out what day <console.log('path---' + cell.day)>
       const currentCell = this.findDay(cell.day, index)
       // change the color of the cell
+      this.addStrings(currentCell)
       if (currentCell.cellState === 0) {
         // event.target.style.backgroundColor = 'green'
         currentCell.cellState = 1
@@ -218,7 +150,8 @@ export default {
         currentCell.cellState = 0
       }
     },
-    colorChange() {
+    addStrings(currentCell) {
+      currentCell.string[currentCell.string.length] = this.guestName
     },
     findDay(day, index) {
       let currentCell = {}
@@ -259,25 +192,24 @@ export default {
       Api.patch('/schedules', this.cells)// ??
       console.log('click')
     },
-    handleGetAll() {
-      const response = Api.get('/schedules').then(res => {
-        return res.data
-      })
-      console.log(response)
-      // pending promise
-    },
-    async handleGetOne() {
+    // handleGetAll() {
+    //   const response = Api.get('/schedules').then(res => {
+    //     return res.data
+    //   })
+    //   console.log(response)
+    //   // pending promise
+    // },
+    async useThisSchedule(scheduleName) {
       Api.get('/schedules').then(response => {
         const arr = response.data.schedules
         for (let i = 0; i < arr.length; i++) {
           const element = arr[i].scheduleName
-          if (this.getNewSchedule === element) {
+          if (scheduleName === element) {
             const cellId = arr[i]._id
+            console.log(cellId)
             Api.get('/schedules/' + cellId).then(resCell => {
               this.cells = resCell.data.cells
-              console.log(resCell.data.cells)
-              // location.reload()
-              // this.$router.push('/SchedulingSubmit')
+              console.log(resCell.data) // remove later
             })
           }
         }
