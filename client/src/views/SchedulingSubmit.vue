@@ -3,7 +3,7 @@
     <div class="aaa">
       <table class="table1">
         <tr>
-          <th id="title">{{cells.scheduleName}}</th>
+          <th id="title">{{this.scheduleName}}</th>
           <th>1:00</th>
           <th>2:00</th>
           <th>3:00</th>
@@ -104,8 +104,9 @@
       </table>
     </div>
     <div>
-      <button @click="handlePatch()">Save</button>
+      <button @click="handlePatch()">Patch</button>
       <button @click="returnToProfile()">return</button>
+      <button @click="handlePut()">Put</button>
     </div>
   </div>
 </template>
@@ -115,20 +116,34 @@ import { Api } from '@/Api'
 export default {
   name: 'schedulingSubmit',
   mounted() {
-    console.log('hi')
+    console.log('hi') // testing purposes
     Api.get('/users/' + this.$route.params.userId + '/schedules/' + this.$route.params.scheduleName).then(response => {
-      // this.cells.scheduleName = response.data
-      console.log(this.$route.params.userId)
-      // this.useThisSchedule(response.data.scheduleName)
-      this.cells = response.data.cells // this works but cells must be in at the object
-      // this.guestName = response.data
-      // console.log(this.guestName)
+      if (response.data === '') {
+        this.useThisSchedule(this.$route.params.scheduleName)
+        // Api.get('/users/' + this.$route.params.userId).then(resCell => {
+        //   console.log(resCell + 'aaaaa')
+        // }).catch(r => console.log('error' + r))
+      } else {
+        this.cells = response.data.cells // this works but cells must be in at the object
+        this.scheduleID = response.data._id
+        this.scheduleName = response.data.scheduleName
+        this.owner = response.data.owner
+        console.log(response.data.scheduleName)
+        console.log(this.scheduleName)
+      }
     })
+    // console.log(this.cells)so then
+    // console.log(this.scheduleName)
+    // console.log(this.$route.params.userId + ' <end>')
   },
   data() {
     return {
+      scheduleID: 0,
+      scheduleName: '',
+      owner: '',
       cells: Object,
-      GuestName: ''
+      // currentUser: Object,
+      guestName: ''
     }
   },
   methods: {
@@ -138,7 +153,6 @@ export default {
       // figure out what day <console.log('path---' + cell.day)>
       const currentCell = this.findDay(cell.day, index)
       // change the color of the cell
-      this.addStrings(currentCell)
       if (currentCell.cellState === 0) {
         // event.target.style.backgroundColor = 'green'
         currentCell.cellState = 1
@@ -150,7 +164,7 @@ export default {
         currentCell.cellState = 0
       }
     },
-    addStrings(currentCell) {
+    addStrings(currentCell) { // this.addStrings(currentCell)
       currentCell.string[currentCell.string.length] = this.guestName
     },
     findDay(day, index) {
@@ -173,10 +187,10 @@ export default {
       }
       return currentCell
     },
-    async handleSubmet() {
+    async handleSubmet() { // delete later
       // this is one way of doing a async call
       console.log('click1', this.cells)
-      const res = await Api.post('/schedules', this.cells)
+      const res = await Api.post('/schedules', this.data)
       console.log(res.data)
       console.log('click2')
       // this is the exact same way but syntactic sugar
@@ -189,16 +203,21 @@ export default {
       // console.log('click')
     },
     handlePatch() {
-      Api.patch('/schedules', this.cells)// ??
-      console.log('click')
+      console.log(this.scheduleID + ' test ID')
+      console.log(this.cells)
+      this.cells.scheduleName = '2' // use an input instead
+      Api.patch('/schedules/' + this.scheduleID, this.cells).then(console.log)
+      this.$router.push('/SchedulingSubmit/' + this.$route.params.userId + '/schedules/' + this.cells.scheduleName)
+      location.reload()
     },
-    // handleGetAll() {
-    //   const response = Api.get('/schedules').then(res => {
-    //     return res.data
-    //   })
-    //   console.log(response)
-    //   // pending promise
-    // },
+    handlePut() {
+      console.log(this.scheduleID + ' test ID')
+      Api.put('/schedules/' + this.scheduleID, {
+        owner: this.owner,
+        scheduleName: this.scheduleName,
+        cells: this.cells
+      }).then(console.log)
+    },
     async useThisSchedule(scheduleName) {
       Api.get('/schedules').then(response => {
         const arr = response.data.schedules
@@ -209,7 +228,12 @@ export default {
             console.log(cellId)
             Api.get('/schedules/' + cellId).then(resCell => {
               this.cells = resCell.data.cells
-              console.log(resCell.data) // remove later
+              this.scheduleID = resCell.data._id
+              this.scheduleName = resCell.data.scheduleName // test liam
+              this.owner = resCell.data.owner
+              console.log(this.scheduleID)
+              console.log(this.scheduleName)
+              console.log(this.owner)
             })
           }
         }
@@ -217,11 +241,6 @@ export default {
     },
     returnToProfile() {
       this.$router.push('/profile')
-    }
-  },
-  computed: {
-    title: function () {
-      return this.cells.scheduleName
     }
   }
 }

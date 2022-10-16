@@ -20,7 +20,7 @@
       <input id="email" type="text" v-model="user.email" placeholder="Enter email" required /><br />
     </div>
     <div id="buttonbox">
-      <button @click="registerUser()" onclick="location.href='/'" class="registerbtn">Create Account</button>
+      <button @click="registerUser()" class="registerbtn">Create Account</button>
     </div>
   </div>
 </template>
@@ -41,9 +41,13 @@ export default {
   methods: {
     registerUser() {
       console.log(this.user.username)
-      console.log('click')
-      Api.post('/users', this.user)
-        .then(console.log)
+      // console.log('click')
+      // if (condition) { //stop duplicate usernames // in my stop accounts that already exist I think but still check
+      // } else {
+      // }
+      Api.post('/users', this.user).then(console.log).then(resCell => {
+        this.$router.push('/')
+      })
     }
   }
 }
