@@ -20,7 +20,7 @@
           <a v-if="currentUser">{{ currentUser.username }}</a>
         </p>
         <p>
-          <a v-if="currentUser">{{ currentUser.name }}</a>
+          <a v-if="currentUser" >{{ currentUser.name }}</a>
         </p>
         <p>
           <a v-if="currentUser">{{ currentUser.email }}</a>
@@ -55,7 +55,7 @@
               </div>
             </div>
             <div>
-              <button class="btnUser" @click="createSchedule()">
+              <button class="btnUser" @click="checkIfExists">
                 Create Schedule
               </button>
             </div>
@@ -132,6 +132,7 @@ export default {
   },
   data() {
     return {
+      scheduleNameExists: false,
       pictureModal: false,
       deleteModal: false,
       invalidScheduleName: false,
@@ -139,61 +140,60 @@ export default {
       deleteScheduleName: '',
       selectScheduleName: '',
       cells: {
-        owner: '',
         scheduleName: '',
         monday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            state: 0,
+            cellState: 0,
             id: i,
-            string: '',
+            string: [],
             day: 1
           }))
         },
         tuesday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            state: 0,
+            cellState: 0,
             id: i,
-            string: '',
+            string: [],
             day: 2
           }))
         },
         wednesday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            state: 0,
+            cellState: 0,
             id: i,
-            string: '',
+            string: [],
             day: 3
           }))
         },
         thursday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            state: 0,
+            cellState: 0,
             id: i,
-            string: '',
+            string: [],
             day: 4
           }))
         },
         friday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            state: 0,
+            cellState: 0,
             id: i,
-            string: '',
+            string: [],
             day: 5
           }))
         },
         saturday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            state: 0,
+            cellState: 0,
             id: i,
-            string: '',
+            string: [],
             day: 6
           }))
         },
         sunday: {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
-            state: 0,
+            cellState: 0,
             id: i,
-            string: '',
+            string: [],
             day: 7
           }))
         }
@@ -206,18 +206,37 @@ export default {
   },
   methods: {
     async createSchedule() {
-      const res = await Api.post('/schedules', this.cells)
-      console.log(res.data)
+      const res = await Api.post('users/' + this.currentUser._id + '/schedules', this.cells)
       if (res.status === 201) {
-        this.$router.push('/SchedulingSubmit')
+        const usersArr = await Api.get('/users')
+        for (let i = 0; i < usersArr.data.users.length; i++) {
+          if (usersArr.data.users[i].username === this.currentUser.username) {
+            this.currentUser = usersArr.data.users[i]
+            localStorage.setItem('currentUser', JSON.stringify(this.currentUser))
+            this.$router.push('/SchedulingSubmit/' + this.currentUser._id + '/schedules/' + this.cells.scheduleName)
+          }
+        }
         this.invalidScheduleName = false
       } else if (res.status === 500) {
         this.invalidScheduleName = true
       }
     },
-    logout() {
-      localStorage.removeItem('currentUser')
-      this.$router.push('/')
+    checkIfExists() {
+      Api.get('/schedules').then(response => {
+        const arr = response.data.schedules
+        for (let i = 0; i < arr.length; i++) {
+          const element = arr[i].scheduleName
+          if (this.cells.scheduleName === element) {
+            this.scheduleNameExists = true
+          }
+        }
+        if (this.scheduleNameExists) {
+          this.scheduleNameExists = false
+        } else {
+          this.scheduleNameExists = false
+          this.createSchedule()
+        }
+      })
     },
     async selectSchedule() {
       Api.get('/schedules').then(response => {
@@ -225,11 +244,10 @@ export default {
         for (let i = 0; i < arr.length; i++) {
           const element = arr[i].scheduleName
           if (this.selectScheduleName === element) {
-            console.log('aaa')
             const cellId = arr[i]._id
             Api.get('/schedules/' + cellId).then(resCell => {
-              // this.cells = resCell.data.cells
-              this.$router.push('/SchedulingSubmit')
+              this.cells = resCell.data
+              this.$router.push('/SchedulingSubmit/' + this.currentUser._id + '/schedules/' + this.cells.scheduleName)
             }
             )
           }
@@ -243,13 +261,18 @@ export default {
           const element = arr[i].scheduleName
           if (this.deleteScheduleName === element) {
             const id = arr[i]._id
-            console.log(id)
-            Api.delete('/schedules/' + id).then(console.log)
+            Api.delete('/users/' + this.currentUser._id + '/schedules/' + id)
+            // Api.delete('/schedules/' + id).then(console.log)
             this.deleteScheduleName = ''
+            console.log(this.currentUser.schedule)
             break
           }
         }
       })
+    },
+    logout() {
+      localStorage.removeItem('currentUser')
+      this.$router.push('/')
     }
   }
 }

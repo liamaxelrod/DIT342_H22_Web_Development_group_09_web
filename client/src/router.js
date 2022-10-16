@@ -28,11 +28,11 @@ export default new Router({
       name: 'updateInfo',
       component: UpdateInfo
     },
-    // {
-    //   path: '/schedulingSubmit/:name', // might be deleted later
-    //   name: 'schedulingSubmit',
-    //   component: SchedulingSubmit
-    // },
+    {
+      path: '/schedulingSubmit/:userId/schedules/:scheduleName', // might be deleted later
+      name: 'schedulingSubmit',
+      component: SchedulingSubmit
+    },
     {
       path: '/schedulingSubmit',
       name: 'schedulingSubmit',
