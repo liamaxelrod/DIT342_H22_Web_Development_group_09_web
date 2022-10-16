@@ -205,7 +205,7 @@ export default {
     handlePatch() {
       console.log(this.scheduleID + ' test ID')
       console.log(this.cells)
-      this.cells.scheduleName = '2git ' // use an input instead
+      this.cells.scheduleName = '2' // use an input instead
       Api.patch('/schedules/' + this.scheduleID, this.cells).then(console.log)
       this.$router.push('/SchedulingSubmit/' + this.$route.params.userId + '/schedules/' + this.cells.scheduleName)
       location.reload()
