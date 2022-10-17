@@ -16,19 +16,41 @@
         </button>
       </div>
       <div class>
-        <p>
-          <a v-if="currentUser">{{ currentUser.username }}</a>
-        </p>
-        <p>
-          <a v-if="currentUser" >{{ currentUser.name }}</a>
-        </p>
-        <p>
-          <a v-if="currentUser">{{ currentUser.email }}</a>
-        </p>
+        <div>
+          <label for="uname" class="label">Username: </label>
+          <input
+            type="text"
+            id="uname"
+            class="userInfo"
+            :value="this.currentUser.username"
+            aria-label="username"
+            readonly
+          />
+        </div>
+        <div>
+          <label for="name" class="label">Name: </label>
+          <input
+            type="text"
+            id="name"
+            class="userInfo"
+            :value="this.currentUser.name"
+            readonly
+          />
+        </div>
+        <div>
+          <label for="email" class="label">Email: </label>
+          <input
+            type="text"
+            id="email"
+            class="userInfo"
+            :value="this.currentUser.email"
+            readonly
+          />
+        </div>
       </div>
       <div>
         <button class="btnUser" id="logoutbtn" @click="logout()">
-          log out
+          Log Out
         </button>
       </div>
     </div>
@@ -121,7 +143,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import { Api } from '../Api'
 import Modal from './Modal.vue'
@@ -136,9 +157,14 @@ export default {
       pictureModal: false,
       deleteModal: false,
       invalidScheduleName: false,
-      currentUser: {},
       deleteScheduleName: '',
       selectScheduleName: '',
+      currentUser: {
+        name: '',
+        username: '',
+        email: '',
+        password: ''
+      },
       cells: {
         scheduleName: '',
         monday: {
@@ -255,7 +281,7 @@ export default {
       })
     },
     async deleteSchedule() {
-      Api.get('/schedules').then(response => {
+      Api.get('/schedules').then((response) => {
         const arr = response.data.schedules
         for (let i = 0; i < arr.length; i++) {
           const element = arr[i].scheduleName
