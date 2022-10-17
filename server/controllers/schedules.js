@@ -2,17 +2,6 @@ var express = require('express');
 var router = express.Router();
 var Schedule = require('../models/schedule');
 
-
-// //create schedule // delete if not used
-// router.post('/api/schedules', function(req, res, next){
-//     var schedule = new Schedule(req.body);  // gets only what's in the object
-//     schedule.cells = req.body               // gets the entire object
-//     schedule.save(function(err, schedule) {
-//         if (err) { return next(err); }
-//         res.status(201).json(schedule);
-//     })
-// });
-
 //get schedule //in use
 router.get('/api/schedules', function (req, res, next) {
     Schedule.find(function(err, schedules) {
@@ -56,17 +45,28 @@ router.put('/api/schedules/:id', (req, res, next) => {
     .then(res => res.status(200).json(res))
     .catch(err => res.status(500).json(err));
 });
+////////////////////////////////////////////////////////////////////////////
+//delete a schedule // not connected to front end needed or class
+router.delete('/api/schedules/:id', function(req, res, next) {
+    var id = req.params.id;
+    Schedule.findOneAndDelete({_id: id}, function(err, schedule) {
+        if (err) { return next(err); }
+        if (schedule === null) {
+            return res.status(404).json({'message': 'schedule not found'});
+        }
+        res.json(schedule);
+    });
+});
 
-// //delete schedule // delete if not used
-// router.delete('/api/schedules/:id', function(req, res, next) {
-//     var id = req.params.id;
-//     Schedule.findOneAndDelete({_id: id}, function(err, schedule) {
-//         if (err) { return next(err); }
-//         if (schedule === null) {
-//             return res.status(404).json({'message': 'schedule not found'});
-//         }
-//         res.json(schedule);
-//     });
-// });
+//delete all schedule // not connected to front end needed or class
+router.delete('/api/schedules', function(req, res, next) {
+    Schedule.delete(function(err, schedule) {
+        if (err) { return next(err); }
+        if (schedule === null) {
+            return res.status(404).json({'message': 'schedule not found'});
+        }
+        res.json(schedule);
+    });
+});
 
 module.exports = router;
