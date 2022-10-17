@@ -101,18 +101,9 @@
     </div>
     <div>
       <div>
-        <button @click="handleSubmet()">submit</button>
-      <p></p>
-      </div>
-      <button @click="handlePatch()">Patch</button>
-      <button @click="handleGetAll()">GetAll</button>
-      <div>
-        <br><input type="text" id="getNewSchedule" v-model="getNewSchedule" placeholder="schedule name"/><br/>
-        <button @click="handleGetOne()">GetOne</button>
-        <p></p>
-      </div>
-      <div>
-        <button @click="returnToProfile()">return</button>
+        <button @click="handleSubmit()" class="registerbtn">Submit</button>
+      <button @click="handlePatch()" class="registerbtn">Patch</button>
+        <button @click="returnToProfile()" class="registerbtn">Return</button>
       </div>
     </div>
   </div>
@@ -226,7 +217,7 @@ export default {
       }
       return currentCell
     },
-    async handleSubmet() {
+    async handleSubmit() {
       // this is one way of doing a async call
       console.log('click1', this.cells)
       const res = await Api.post('/schedules', this.cells)
