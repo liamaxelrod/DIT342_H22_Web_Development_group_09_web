@@ -5,7 +5,7 @@ const Schedule = require("../models/schedule");
 const ObjectId = require('mongoose').Types.ObjectId;
 //// const user = require("../models/user");
 
-//  Creates a user
+//  Creates a user // in use
 router.post("/api/users", function (req, res, next) {
   var user = new User(req.body);
   user.save(function (err, user) {
@@ -16,7 +16,7 @@ router.post("/api/users", function (req, res, next) {
   });
 });
 
-//  Gets all users
+//  Gets all users //in use
 router.get("/api/users", function (req, res, next) {
   User.find(function (err, users) {
     if (err) {
@@ -31,23 +31,23 @@ router.get("/api/users", function (req, res, next) {
   });
 });
 
-//  Gets a user with the requested username
-router.get("/api/users/:username", function (req, res, next) {
-  const username = req.params.username;
+//  Gets a user with the requested username 
+// router.get("/api/users/:username", function (req, res, next) {
+//   const username = req.params.username;
 
-  User.findOne({ username: username }, function (err, user) {
-    if (err) {
-      return next(err);
-    }
-    if (user === null) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    res.json(user);
-  });
+//   User.findOne({ username: username }, function (err, user) {
+//     if (err) {
+//       return next(err);
+//     }
+//     if (user === null) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+//     res.json(user);
+//   });
+// });
 
-// find user by ID // don't know this will work with the other get method existing above
+// find user by ID //in use
 router.get('/api/users/:id', function(req, res, next) {
-  console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
   var id = req.params.id;
   User.findById(id, function(err, User) {
       if (err) { return next(err); }
@@ -65,48 +65,47 @@ router.get('/api/users/:id', function(req, res, next) {
   //     }
   //     res.json({'users': user});
   // });
-});
 
-//  Deletes all the users
-router.delete("/api/users", function (req, res, next) {
-  User.deleteMany(function (err, users) {
-    if (err) {
-      return next(err);
-    }
-    if (users === null) {
-      return res.status(404).json({
-        message: "No registered users. Register users to delete them",
-      });
-    }
-    res.json({ users: users });
-  });
-});
 
-router.delete("/api/users/:username", function (req, res, next) {
-  const username = req.params.username;
-  User.findOneAndDelete(username, function (err, user) {
-    if (err) {
-      return next(err);
-    }
-    if (user === null) {
-      return res
-        .status(404)
-        .json({ message: "User with specified Id cannot be found" });
-    }
-    res.json({ users: user });
-  });
-});
+// //  Deletes all the users
+// router.delete("/api/users", function (req, res, next) {
+//   User.deleteMany(function (err, users) {
+//     if (err) {
+//       return next(err);
+//     }
+//     if (users === null) {
+//       return res.status(404).json({
+//         message: "No registered users. Register users to delete them",
+//       });
+//     }
+//     res.json({ users: users });
+//   });
+// });
 
-//  Updates User with username using PUT (updates every singe aspect)
+// router.delete("/api/users/:username", function (req, res, next) {
+//   const username = req.params.username;
+//   User.findOneAndDelete(username, function (err, user) {
+//     if (err) {
+//       return next(err);
+//     }
+//     if (user === null) {
+//       return res
+//         .status(404)
+//         .json({ message: "User with specified Id cannot be found" });
+//     }
+//     res.json({ users: user });
+//   });
+// });
 
+//  Updates User with username using PUT (updates every singe aspect) //in use
 router.put('/api/users/:id', (req, res, next) => {
   console.log(req.body)
   User.findByIdAndUpdate(req.params.id, req.body)
   .then(res => res.status(200).json(res))
   .catch(err => res.status(500).json(err));
 });
+// check if need to be in use????
 //  Updates User with username using PATCH (updates only the specific aspect)
-
 router.patch("/api/users/:username", function (req, res, next) {
   const username = req.params.username;
   User.findOneAndUpdate(username, function (err, user) {
@@ -129,6 +128,7 @@ router.patch("/api/users/:username", function (req, res, next) {
   });
 });
 
+//in use
 router.post(
   "/api/users/:username/schedules", function (req, res, next) {
     const schedule = new Schedule(req.body)
@@ -154,7 +154,7 @@ router.post(
 
   });
 
-router.get(
+router.get( //in use
   "/api/users/:username/schedules/:name", function (req, res, next) {
     var userId = req.params["username"]
     var scheduleName = req.params["name"]
@@ -179,13 +179,10 @@ router.get(
     })
   });
 
-router.delete(
+router.delete( //in use
   "/api/users/:username/schedules/:id", function (req, res, next) {
   var userId = req.params["username"]
   var scheduleID = req.params["id"]
-  console.log(userId)
-  console.log(scheduleID)
-  console.log('scheduleID')
 
   // //you should pass userID and scheduleId from the frontend
   User.findById(userId).populate("schedule").then((result) => {
@@ -197,7 +194,6 @@ router.delete(
           schedule = scheduleArray[i]
         } 
       }
-      console.log(schedule)
       schedule.remove()
       res.json(schedule)
       // remove the schedule from the user

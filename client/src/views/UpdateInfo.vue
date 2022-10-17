@@ -66,17 +66,23 @@ export default {
   },
   methods: {
     updateAll() {
-      Api.put('/users/' + this.currentUser._id, {
-        name: this.user.name,
-        email: this.user.email,
-        password: this.user.password
-      })
-      Api.get('/users/' + this.currentUser._id).then((res) => {
-        console.log(res)
-        localStorage.setItem('currentUser', JSON.stringify(res.data.user))
-      })
-      localStorage.removeItem('currentUser')
-      this.$router.push('/')
+      if (this.user.name !== '') {
+        if (this.user.email !== '') {
+          if (this.user.password !== '') {
+            Api.put('/users/' + this.currentUser._id, {
+              name: this.user.name,
+              email: this.user.email,
+              password: this.user.password
+            })
+            Api.get('/users/' + this.currentUser._id).then((res) => {
+              console.log(res)
+              localStorage.setItem('currentUser', JSON.stringify(res.data.user))
+            })
+            localStorage.removeItem('currentUser')
+            this.$router.push('/')
+          }
+        }
+      }
     }
   }
 }

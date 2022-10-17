@@ -41,10 +41,6 @@ export default {
   methods: {
     registerUser() {
       console.log(this.user.username)
-      // console.log('click')
-      // if (condition) { //stop duplicate usernames // in my stop accounts that already exist I think but still check
-      // } else {
-      // }
       Api.post('/users', this.user).then(console.log).then(resCell => {
         this.$router.push('/')
       })

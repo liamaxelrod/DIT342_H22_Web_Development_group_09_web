@@ -16,7 +16,7 @@
         </div>
         </div>
         <div id="buttonbox">
-        <button onclick="location.href='/forgotpassword'" class="registerbtn">Forgot Password</button>
+        <!-- <button onclick="location.href='/forgotpassword'" class="registerbtn">Forgot Password</button> // outside of scope //-->
         <button onclick="location.href='/register'" class="registerbtn">Register</button>
         <button @click="login(username, password)" class="registerbtn">Log in</button>
         </div>
