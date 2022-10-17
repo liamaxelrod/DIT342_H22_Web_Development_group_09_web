@@ -85,31 +85,16 @@ router.delete("/api/users/:username", function (req, res, next) {
 });
 
 //  Updates User with username using PUT (updates every singe aspect)
-router.put("/api/users/:username", function (req, res, next) {
-  const username = req.params.username;
-  User.findOneAndReplace(username, function (err, user) {
-    if (err) {
-      return next(err);
-    }
-    if (user === null) {
-      return res
-        .status(404)
-        .json({ message: "User with specified Id cannot be found" });
-    }
-    user.name = req.body.name;
-    user.email = req.body.email;
-    user.username = req.body.username;
-    user.password = req.body.password;
 
-    user.save;
-
-    res.json(user);
-  });
+router.put('/api/users/:id', (req, res, next) => {
+  console.log(req.body)
+  User.findByIdAndUpdate(req.params.id, req.body)
+  .then(res => res.status(200).json(res))
+  .catch(err => res.status(500).json(err));
 });
-
 //  Updates User with username using PATCH (updates only the specific aspect)
 
-router.put("/api/users/:username", function (req, res, next) {
+router.patch("/api/users/:username", function (req, res, next) {
   const username = req.params.username;
   User.findOneAndUpdate(username, function (err, user) {
     if (err) {
