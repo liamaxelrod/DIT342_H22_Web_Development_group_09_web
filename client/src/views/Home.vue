@@ -18,9 +18,7 @@
         <div id="buttonbox">
         <button onclick="location.href='/forgotpassword'" class="registerbtn">Forgot Password</button>
         <button onclick="location.href='/register'" class="registerbtn">Register</button>
-        <!-- <button onclick="location.href='/profile'" class="registerbtn">Log in</button> -->
         <button @click="login(username, password)" class="registerbtn">Log in</button>
-        <button @click="getUser()" onclick="location.href='/'" class="registerbtn">Get User</button>
         </div>
       </div>
   </template>

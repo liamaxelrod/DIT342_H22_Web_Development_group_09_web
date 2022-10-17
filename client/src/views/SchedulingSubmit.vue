@@ -104,9 +104,11 @@
       </table>
     </div>
     <div>
-      <button @click="handlePatch()">Patch</button>
-      <button @click="returnToProfile()">return</button>
-      <button @click="handlePut()">Put</button>
+      <div>
+        <button @click="handleSubmit()" class="registerbtn">Submit</button>
+      <button @click="handlePatch()" class="registerbtn">Patch</button>
+        <button @click="returnToProfile()" class="registerbtn">Return</button>
+      </div>
     </div>
   </div>
 </template>
@@ -187,7 +189,7 @@ export default {
       }
       return currentCell
     },
-    async handleSubmet() { // delete later
+    async handleSubmit() {
       // this is one way of doing a async call
       console.log('click1', this.cells)
       const res = await Api.post('/schedules', this.data)
