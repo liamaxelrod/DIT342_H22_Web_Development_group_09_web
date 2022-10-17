@@ -42,7 +42,7 @@
             :cell="cell"
             @click="handleClick($event, cell)"
             v-bind:style= "[cell.cellState === 1 ? {'backgroundColor': 'green'} : cell.cellState === 2 ? {'backgroundColor': 'red'} : {'backgroundColor': 'white'}]"
-          >{{cell.cellState}} {{cell.string}}
+          >{{cell.string}} {{}}
         </td>
         </tr>
         <tr>
@@ -53,7 +53,7 @@
             :cell="cell"
             @click="handleClick($event, cell)"
             v-bind:style= "[cell.cellState === 1 ? {'backgroundColor': 'green'} : cell.cellState === 2 ? {'backgroundColor': 'red'} : {'backgroundColor': 'white'}]"
-          >{{cell.cellState}}
+          >{{cell.string}}
         </td>
         </tr>
         <tr>
@@ -63,7 +63,9 @@
             :key="cell.id"
             :cell="cell"
             @click="handleClick($event, cell)"
-          ></td>
+            v-bind:style= "[cell.cellState === 1 ? {'backgroundColor': 'green'} : cell.cellState === 2 ? {'backgroundColor': 'red'} : {'backgroundColor': 'white'}]"
+          >{{cell.string}}
+        </td>
         </tr>
         <tr>
           <td>Thursday</td>
@@ -72,7 +74,9 @@
             :key="cell.id"
             :cell="cell"
             @click="handleClick($event, cell)"
-          ></td>
+            v-bind:style= "[cell.cellState === 1 ? {'backgroundColor': 'green'} : cell.cellState === 2 ? {'backgroundColor': 'red'} : {'backgroundColor': 'white'}]"
+          >{{cell.string}}
+        </td>
         </tr>
         <tr>
           <td>Friday</td>
@@ -81,7 +85,9 @@
             :key="cell.id"
             :cell="cell"
             @click="handleClick($event, cell)"
-          ></td>
+            v-bind:style= "[cell.cellState === 1 ? {'backgroundColor': 'green'} : cell.cellState === 2 ? {'backgroundColor': 'red'} : {'backgroundColor': 'white'}]"
+          >{{cell.string}}
+        </td>
         </tr>
         <tr>
           <td>Saturday</td>
@@ -90,7 +96,9 @@
             :key="cell.id"
             :cell="cell"
             @click="handleClick($event, cell)"
-          ></td>
+            v-bind:style= "[cell.cellState === 1 ? {'backgroundColor': 'green'} : cell.cellState === 2 ? {'backgroundColor': 'red'} : {'backgroundColor': 'white'}]"
+          >{{cell.string}}
+        </td>
         </tr>
         <tr>
           <td>Sunday</td>
@@ -99,14 +107,18 @@
             :key="cell.id"
             :cell="cell"
             @click="handleClick($event, cell)"
-          ></td>
+            v-bind:style= "[cell.cellState === 1 ? {'backgroundColor': 'green'} : cell.cellState === 2 ? {'backgroundColor': 'red'} : {'backgroundColor': 'white'}]"
+          >{{cell.string}}
+        </td>
         </tr>
       </table>
     </div>
     <div>
-      <button @click="handlePatch()">Patch</button>
+      <br><input type="text" id="getNewSchedule" v-model="makeNewScheduleName" placeholder="schedule name"/><br/>
+      <button @click="handlePatch()">update name</button>
       <button @click="returnToProfile()">return</button>
-      <button @click="handlePut()">Put</button>
+      <button @click="handlePut()">save changes</button>
+      <button @click="test()">test</button>
     </div>
   </div>
 </template>
@@ -120,38 +132,47 @@ export default {
     Api.get('/users/' + this.$route.params.userId + '/schedules/' + this.$route.params.scheduleName).then(response => {
       if (response.data === '') {
         this.useThisSchedule(this.$route.params.scheduleName)
-        // Api.get('/users/' + this.$route.params.userId).then(resCell => {
-        //   console.log(resCell + 'aaaaa')
-        // }).catch(r => console.log('error' + r))
       } else {
         this.cells = response.data.cells // this works but cells must be in at the object
         this.scheduleID = response.data._id
         this.scheduleName = response.data.scheduleName
         this.owner = response.data.owner
-        console.log(response.data.scheduleName)
-        console.log(this.scheduleName)
       }
     })
-    // console.log(this.cells)so then
-    // console.log(this.scheduleName)
-    // console.log(this.$route.params.userId + ' <end>')
+    // Api.get('/users/' + this.$route.params.userId).then(resCell => {
+    //   console.log(resCell)
+    //   console.log(resCell)
+    //   console.log(resCell)
+    //   console.log('resCell')
+    // })
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
+    this.guestUsername = this.currentUser.username
   },
   data() {
     return {
+      nameList: 'a', // test
+      currentUser: {},
       scheduleID: 0,
       scheduleName: '',
+      makeNewScheduleName: '',
       owner: '',
       cells: Object,
       // currentUser: Object,
-      guestName: ''
+      guestUsername: ''
     }
   },
   methods: {
+    test() {
+      console.log(this.scheduleID)
+      console.log(this.guestUsername)
+      console.log(this.currentUser)
+    },
     handleClick(event, cell) {
       // figure out which cell on the row you click
       const index = event.path[0].cellIndex
       // figure out what day <console.log('path---' + cell.day)>
       const currentCell = this.findDay(cell.day, index)
+      this.addStrings(currentCell)
       // change the color of the cell
       if (currentCell.cellState === 0) {
         // event.target.style.backgroundColor = 'green'
@@ -165,8 +186,28 @@ export default {
       }
     },
     addStrings(currentCell) { // this.addStrings(currentCell)
-      currentCell.string[currentCell.string.length] = this.guestName
+      console.log(currentCell.string.length)
+      let noMatch = true
+      for (let i = 0; i < currentCell.string.length; i++) {
+        const currentName = currentCell.string[i]
+        console.log('hi1')
+        if (currentName === this.guestUsername) {
+          noMatch = false
+        }
+      }
+      if (noMatch) {
+        currentCell.string[currentCell.string.length] = this.guestUsername
+        this.presentName(currentCell)
+      }
     },
+    // presentName(currentCell) {
+    //   let nameList = ''
+    //   for (let i = 0; i < currentCell.string.length; i++) {
+    //     const element = currentCell.string[i]
+    //     nameList = nameList + '\n' + element
+    //   }
+    //   return nameList
+    // },
     findDay(day, index) {
       let currentCell = {}
       index = index - 1 // it works
@@ -203,12 +244,28 @@ export default {
       // console.log('click')
     },
     handlePatch() {
-      console.log(this.scheduleID + ' test ID')
-      console.log(this.cells)
-      this.cells.scheduleName = '2' // use an input instead
-      Api.patch('/schedules/' + this.scheduleID, this.cells).then(console.log)
-      this.$router.push('/SchedulingSubmit/' + this.$route.params.userId + '/schedules/' + this.cells.scheduleName)
-      location.reload()
+      Api.get('/schedules').then(response => {
+        const arr = response.data.schedules
+        for (let i = 0; i < arr.length; i++) {
+          const element = arr[i].scheduleName
+          if (this.makeNewScheduleName === element) {
+            this.makeNewScheduleName = 'already exist'
+            break
+          } else if (this.makeNewScheduleName === '') {
+            this.makeNewScheduleName = 'not empty'
+            break
+          } else {
+            if (this.guestUsername === this.owner) {
+              this.cells.scheduleName = this.makeNewScheduleName // use an input instead
+              Api.patch('/schedules/' + this.scheduleID, this.cells).then(console.log)
+              this.$router.push('/SchedulingSubmit/' + this.$route.params.userId + '/schedules/' + this.cells.scheduleName)
+              location.reload()
+            } else {
+              this.makeNewScheduleName = 'not owner'
+            }
+          }
+        }
+      })
     },
     handlePut() {
       console.log(this.scheduleID + ' test ID')
@@ -229,11 +286,8 @@ export default {
             Api.get('/schedules/' + cellId).then(resCell => {
               this.cells = resCell.data.cells
               this.scheduleID = resCell.data._id
-              this.scheduleName = resCell.data.scheduleName // test liam
+              this.scheduleName = resCell.data.scheduleName
               this.owner = resCell.data.owner
-              console.log(this.scheduleID)
-              console.log(this.scheduleName)
-              console.log(this.owner)
             })
           }
         }

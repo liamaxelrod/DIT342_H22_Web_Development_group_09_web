@@ -47,7 +47,7 @@ router.get("/api/users/:username", function (req, res, next) {
 
 // find user by ID // don't know this will work with the other get method existing above
 router.get('/api/users/:id', function(req, res, next) {
-  console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+  console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa') // don't know if this is used
   var id = req.params.id;
   User.findById(id, function(err, User) {
       if (err) { return next(err); }
@@ -198,9 +198,6 @@ router.delete(
   "/api/users/:username/schedules/:id", function (req, res, next) {
   var userId = req.params["username"]
   var scheduleID = req.params["id"]
-  console.log(userId)
-  console.log(scheduleID)
-  console.log('scheduleID')
 
   // //you should pass userID and scheduleId from the frontend
   User.findById(userId).populate("schedule").then((result) => {
@@ -212,7 +209,6 @@ router.delete(
           schedule = scheduleArray[i]
         } 
       }
-      console.log(schedule)
       schedule.remove()
       res.json(schedule)
       // remove the schedule from the user

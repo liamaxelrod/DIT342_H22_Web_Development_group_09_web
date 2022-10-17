@@ -145,7 +145,7 @@ export default {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
             cellState: 0,
             id: i,
-            string: [],
+            string: ['names:'],
             day: 1
           }))
         },
@@ -153,7 +153,7 @@ export default {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
             cellState: 0,
             id: i,
-            string: [],
+            string: ['names:'],
             day: 2
           }))
         },
@@ -161,7 +161,7 @@ export default {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
             cellState: 0,
             id: i,
-            string: [],
+            string: ['names:'],
             day: 3
           }))
         },
@@ -169,7 +169,7 @@ export default {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
             cellState: 0,
             id: i,
-            string: [],
+            string: ['names:'],
             day: 4
           }))
         },
@@ -177,7 +177,7 @@ export default {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
             cellState: 0,
             id: i,
-            string: [],
+            string: ['names:'],
             day: 5
           }))
         },
@@ -185,7 +185,7 @@ export default {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
             cellState: 0,
             id: i,
-            string: [],
+            string: ['names:'],
             day: 6
           }))
         },
@@ -193,7 +193,7 @@ export default {
           cellsRo: Array.from({ length: 24 }, (_, i) => ({
             cellState: 0,
             id: i,
-            string: [],
+            string: ['names:'],
             day: 7
           }))
         }
@@ -206,19 +206,23 @@ export default {
   },
   methods: {
     async createSchedule() {
-      const res = await Api.post('users/' + this.currentUser._id + '/schedules', this.cells)
-      if (res.status === 201) {
-        const usersArr = await Api.get('/users')
-        for (let i = 0; i < usersArr.data.users.length; i++) {
-          if (usersArr.data.users[i].username === this.currentUser.username) {
-            this.currentUser = usersArr.data.users[i]
-            localStorage.setItem('currentUser', JSON.stringify(this.currentUser))
-            this.$router.push('/SchedulingSubmit/' + this.currentUser._id + '/schedules/' + this.cells.scheduleName)
+      if (this.cells.scheduleName === '') {
+        this.cells.scheduleName = 'insert name'
+      } else {
+        const res = await Api.post('users/' + this.currentUser._id + '/schedules', this.cells)
+        if (res.status === 201) {
+          const usersArr = await Api.get('/users')
+          for (let i = 0; i < usersArr.data.users.length; i++) {
+            if (usersArr.data.users[i].username === this.currentUser.username) {
+              this.currentUser = usersArr.data.users[i]
+              localStorage.setItem('currentUser', JSON.stringify(this.currentUser))
+              this.$router.push('/SchedulingSubmit/' + this.currentUser._id + '/schedules/' + this.cells.scheduleName)
+            }
           }
+          this.invalidScheduleName = false
+        } else if (res.status === 500) {
+          this.invalidScheduleName = true
         }
-        this.invalidScheduleName = false
-      } else if (res.status === 500) {
-        this.invalidScheduleName = true
       }
     },
     checkIfExists() {
@@ -243,13 +247,15 @@ export default {
         const arr = response.data.schedules
         for (let i = 0; i < arr.length; i++) {
           const element = arr[i].scheduleName
+          console.log(element)
           if (this.selectScheduleName === element) {
             const cellId = arr[i]._id
             Api.get('/schedules/' + cellId).then(resCell => {
               this.cells = resCell.data
               this.$router.push('/SchedulingSubmit/' + this.currentUser._id + '/schedules/' + this.cells.scheduleName)
-            }
-            )
+            })
+          } else {
+            this.selectScheduleName = 'not found'
           }
         }
       })
@@ -262,10 +268,11 @@ export default {
           if (this.deleteScheduleName === element) {
             const id = arr[i]._id
             Api.delete('/users/' + this.currentUser._id + '/schedules/' + id)
-            // Api.delete('/schedules/' + id).then(console.log)
             this.deleteScheduleName = ''
             console.log(this.currentUser.schedule)
             break
+          } else {
+            this.deleteScheduleName = 'no match'
           }
         }
       })
