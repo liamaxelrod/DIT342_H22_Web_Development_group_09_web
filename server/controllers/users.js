@@ -242,7 +242,6 @@ router.delete( // finds the user delete their array of ID schedules // not conne
 router.get( //findds a user and gets that user schedules IDs that were made by this user // not connected to front end needed or class
   "/api/users/:username/schedules", function (req, res, next) {
     var userId = req.params["username"]
-    var scheduleName = req.params["name"]
 
     User.findById(userId).populate("schedule").then((result) => {
       if (result === null) {
