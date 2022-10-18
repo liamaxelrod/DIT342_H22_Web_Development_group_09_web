@@ -56,6 +56,38 @@
           Log Out
         </button>
       </div>
+      <div>
+        <label for="occupation" class="label"> occupation: </label>
+        <label for="occupation" class="label"> {{this.displayOccupation}} </label>
+          <input
+            type="OCC"
+            id="occupationName"
+            v-model="occupation.stringOccupation"
+            placeholder="occupation"
+          />
+          <button class="btnUser" id="updatebtn" @click="makeOccupation">
+          submit occupation
+        </button>
+        <button class="btnUser" id="updatebtn" @click="deleteOccupation">
+          delete occupation
+        </button>
+      </div>
+      <div>
+        <label for="quoteOfTheDay" class="label"> quoteOfTheDay: </label>
+        <label for="quoteOfTheDay" class="label"> {{this.displayQuoteOfTheDay}} </label>
+          <input
+            type="OCC"
+            id="quoteOfTheDayName"
+            v-model="quoteOfTheDay.stringQuoteOfTheDay"
+            placeholder="insert quote"
+          />
+          <button class="btnUser" id="updatebtn" @click="makeQuoteOfTheDay">
+          submit quote
+        </button>
+        <button class="btnUser" id="updatebtn" @click="deleteQuoteOfTheDay">
+          delete quote
+        </button>
+      </div>
     </div>
     <div class="right">
       <div class="top">
@@ -129,6 +161,16 @@ import { Api } from '../Api'
 export default {
   data() {
     return {
+      displayQuoteOfTheDay: '',
+      quoteOfTheDay: {
+        goesWithUserID: '',
+        stringQuoteOfTheDay: ''
+      },
+      displayOccupation: '',
+      occupation: {
+        goesWithUserID: '',
+        stringOccupation: ''
+      },
       scheduleNameExists: false,
       invalidScheduleName: false,
       deleteScheduleName: '',
@@ -203,8 +245,60 @@ export default {
   mounted() {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
     this.cells.owner = this.currentUser.username
+    this.occupation.goesWithUserID = this.currentUser._id
+    this.quoteOfTheDay.goesWithUserID = this.currentUser._id
+    Api.get('/occupations').then((response) => {
+      const arr = response.data.occupation
+      for (let i = 0; i < arr.length; i++) {
+        const element = arr[i]
+        if (element.goesWithUserID === this.currentUser._id) {
+          this.displayOccupation = element.stringOccupation
+        }
+      }
+    })
+    Api.get('/quoteOfTheDays').then((response) => {
+      const arr = response.data.quoteOfTheDays
+      for (let i = 0; i < arr.length; i++) {
+        const element = arr[i]
+        console.log(element)
+        if (element.goesWithUserID === this.currentUser._id) {
+          console.log(element.stringQuoteOfTheDay)
+          this.displayQuoteOfTheDay = element.stringQuoteOfTheDay
+        }
+      }
+    })
   },
   methods: {
+    makeOccupation() {
+      Api.get('occupations/').then((response) => {
+        console.log(response.data.occupation.length)
+        if (response.data.occupation.length === 0) {
+          Api.post('occupations/', this.occupation)
+          location.reload()
+        } else {
+          this.occupation.stringOccupation = 'delete'
+        }
+      })
+    },
+    deleteOccupation() {
+      Api.delete('occupations/')
+      location.reload()
+    },
+    makeQuoteOfTheDay() {
+      Api.get('quoteOfTheDays/').then((response) => {
+        if (response.data.quoteOfTheDays.length === 0) {
+          Api.post('quoteOfTheDays/', this.quoteOfTheDay)
+          location.reload()
+        } else {
+          console.log('asd')
+          this.quoteOfTheDay.stringQuoteOfTheDay = 'delete'
+        }
+      })
+    },
+    deleteQuoteOfTheDay() {
+      Api.delete('quoteOfTheDays/')
+      location.reload()
+    },
     async createSchedule() {
       if (this.cells.scheduleName === '') {
         this.cells.scheduleName = 'insert name'
@@ -307,6 +401,14 @@ input[type='EXSCH'] {
   border: none;
 }
 input[type='userInfo'] {
+  text-align: center;
+  width: 27%;
+  min-width: 100px;
+  margin: 5px 0 10px 0;
+  display: inline-block;
+  border: none;
+}
+input[type='OCC'] {
   text-align: center;
   width: 27%;
   min-width: 100px;
