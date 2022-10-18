@@ -9,7 +9,7 @@
     <br>
     <div class="form-password">
       <h3 style="color:#98D2EB">Password</h3><br />
-      <input id="password" type="pWord" class="form-control" v-model="user.password" placeholder="Enter Password" required /><br />
+      <input id="password" type="password" class="form-control" v-model="user.password" placeholder="Enter Password" required /><br />
     </div>
     <div>
       <h3 style="color:#98D2EB">Name</h3><br />
@@ -52,7 +52,7 @@ export default {
 input[type='USER'],
 input[type='namae'],
 input[type='txt'],
-input[type='username'] {
+input[type='password'] {
   width: 60%;
   margin: 5px 0 10px 0;
   display: inline-block;
@@ -70,7 +70,7 @@ input[type='password']:focus {
 input[type='USER']:focus,
 input[type='namae'],
 input[type='txt'],
-input[type='name']:focus {
+input[type='password']:focus {
   background-color: #ddd;
   outline: none;
 }
@@ -78,7 +78,7 @@ input[type='name']:focus {
 input[type='USER']:focus,
 input[type='namae'],
 input[type='txt'],
-input[type='email']:focus {
+input[type='password']:focus {
   background-color: #ddd;
   outline: none;
 }
