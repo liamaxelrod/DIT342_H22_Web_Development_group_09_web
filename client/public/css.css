@@ -65,14 +65,22 @@
   right: 0;
   background-color: white;
 }
-.image {
-  width: 60%;
-  height: 60%;
+.image1 {
+  width: 45%;
+  height: 45%;
   min-width: 20px;
   min-height: 20px;
   border-radius: 50%;
-  margin: 10px;
   border: 1px solid black;
+}
+.image2 {
+  width: 10%;
+  height: 10%;
+  min-width: 100px;
+  min-height: 100px;
+  border-radius: 50%;
+  border: 1px solid black;
+  margin: 10px;
 }
 h1 {
   font-size: 40px;
@@ -120,19 +128,74 @@ p {
   right: 0;
   background-color: white;
 }
-.btnUser {
+.btnuser,
+#userTableBtn,
+#infoUpdateBtn,
+#scheduleUpdateBtn {
   color: white;
   background-color: rgb(55, 55, 158);
-  width: 125px;
+  width: 140px;
   height: 45px;
   font-size: 15px;
   font-weight: 50%;
   margin: 10px;
 }
-.btnUser:hover {
+.btnUser:hover,
+#userTableBtn:hover,
+#infoUpdateBtn:hover,
+#scheduleUpdateBtn:hover,
+#infoCancelBtn:hover,
+#scheduleReturnBtn:hover,
+#userDeleteOccupcationBtn:hover,
+#scheduleSaveBtn:hover,
+#userSubmitOccupcationBtn:hover, 
+#userDeleteQuoteBtn:hover,
+#userSubmitQuoteBtn:hover,
+#userDeleteQuoteBtn:hover {
   color: rgb(254, 0, 0);
   background-color: white;
   font-weight: 70%;
+}
+#infoCancelBtn,
+#scheduleReturnBtn {
+  color: white;
+  background-color: rgb(166, 18, 18);
+  width: 140px;
+  height: 45px;
+  font-size: 15px;
+  font-weight: 50%;
+  margin: 10px;
+}
+#scheduleSaveBtn {
+  color: white;
+  background-color: rgb(3, 140, 38);
+  width: 140px;
+  height: 45px;
+  font-size: 15px;
+  font-weight: 50%;
+  margin: 10px;
+}
+#userDeleteOccupcationBtn,
+#userDeleteQuoteBtn {
+  color: white;
+  background-color: rgb(166, 18, 18);
+  width: 60%;
+  min-width: 80px;
+  height: 40px;
+  font-size: max(1vw, 12px);
+  font-weight: 50%;
+  margin: 10px;
+}
+#userSubmitOccupcationBtn,
+#userSubmitQuoteBtn {
+  color: white;
+  background-color: rgb(3, 140, 38);
+  width: 60%;
+  min-width: 80px;
+  height: 40px;
+  font-size: max(1vw, 12px);
+  font-weight: 50%;
+  margin: 10px;
 }
 #updatebtn {
   color: white;
@@ -175,4 +238,5 @@ p {
   width: 40%;
   background-color: rgb(205, 205, 205);
   color: black;
+  margin: 10px;
 }

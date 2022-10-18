@@ -2,22 +2,6 @@
   <div>
     <div class="left">
       <h1 style="color: white; font-size: max(4vw, 30px)">Profile</h1>
-      <div>
-        <img
-          src="../images/ProfilePicture.png"
-          alt="profile picture"
-          class="image"
-        />
-      </div>
-      <div>
-        <button
-          class="btnUser"
-          id="updatebtn"
-          onclick="location.href='/update'"
-        >
-          Update Profile
-        </button>
-      </div>
       <div class>
         <div>
           <label for="uname" class="label">Username: </label>
@@ -52,41 +36,74 @@
         </div>
       </div>
       <div>
-        <button class="btnUser" id="logoutbtn" @click="logout()">
-          Log Out
-        </button>
+        <b-button
+          class="btnUser"
+          id="updatebtn"
+          onclick="location.href='/update'"
+        >
+          Update Profile
+        </b-button>
       </div>
       <div>
         <label for="occupation" class="label"> occupation: </label>
-        <label for="occupation" class="label"> {{this.displayOccupation}} </label>
-          <input
-            type="OCC"
-            id="occupationName"
-            v-model="occupation.stringOccupation"
-            placeholder="occupation"
-          />
-          <button class="btnUser" id="updatebtn" @click="makeOccupation">
-          submit occupation
-        </button>
-        <button class="btnUser" id="updatebtn" @click="deleteOccupation">
-          delete occupation
-        </button>
+        <label for="occupation" class="label">
+          {{ this.displayOccupation }}
+        </label>
+        <input
+          type="OCC"
+          id="occupationName"
+          v-model="occupation.stringOccupation"
+          placeholder="occupation"
+        />
+        <div>
+          <b-button
+            class="btnUser"
+            id="userSubmitOccupcationBtn"
+            @click="makeOccupation"
+          >
+            Submit Occupation
+          </b-button>
+        </div>
+        <div>
+          <b-button
+            class="btnUser"
+            id="userDeleteOccupcationBtn"
+            @click="deleteOccupation"
+          >
+            Delete Occupation
+          </b-button>
+        </div>
       </div>
       <div>
-        <label for="quoteOfTheDay" class="label"> quoteOfTheDay: </label>
-        <label for="quoteOfTheDay" class="label"> {{this.displayQuoteOfTheDay}} </label>
-          <input
-            type="OCC"
-            id="quoteOfTheDayName"
-            v-model="quoteOfTheDay.stringQuoteOfTheDay"
-            placeholder="insert quote"
-          />
-          <button class="btnUser" id="updatebtn" @click="makeQuoteOfTheDay">
+        <label for="quoteOfTheDay" class="label"> Quote: </label>
+        <label for="quoteOfTheDay" class="label">
+          {{ this.displayQuoteOfTheDay }}
+        </label>
+        <input
+          type="OCC"
+          id="quoteOfTheDayName"
+          v-model="quoteOfTheDay.stringQuoteOfTheDay"
+          placeholder="insert quote"
+        />
+        <b-button
+          class="btnUser"
+          id="userSubmitQuoteBtn"
+          @click="makeQuoteOfTheDay"
+        >
           submit quote
-        </button>
-        <button class="btnUser" id="updatebtn" @click="deleteQuoteOfTheDay">
+        </b-button>
+        <b-button
+          class="btnUser"
+          id="userDeleteQuoteBtn"
+          @click="deleteQuoteOfTheDay"
+        >
           delete quote
-        </button>
+        </b-button>
+      </div>
+      <div>
+        <b-button class="btnUser" id="logoutbtn" @click="logout()">
+          Log Out
+        </b-button>
       </div>
     </div>
     <div class="right">
@@ -112,27 +129,32 @@
               </div>
             </div>
             <div>
-              <button class="btnUser" @click="checkIfExists">
+              <b-button
+                class="btnUser"
+                id="userTableBtn"
+                @click="checkIfExists"
+              >
                 Create Schedule
-              </button>
+              </b-button>
             </div>
           </tr>
         </table>
       </div>
       <div class="middle">
         <table class="userTable">
-          <th class="userTableHeader">SELETECT A SCHEDULE</th>
+          <th class="userTableHeader">VIEW A SCHEDULE</th>
           <tr class="userTableRow">
             <div>
               <input
-              type="EXSCH"
-              v-model="selectScheduleName"
-              placeholder="Schedule Name"
-              required />
+                type="EXSCH"
+                v-model="selectScheduleName"
+                placeholder="Schedule Name"
+                required
+              />
             </div>
-            <button class="btnUser" @click="selectSchedule">
-              select a schedule
-            </button>
+            <b-button class="btnUser" id="userTableBtn" @click="selectSchedule">
+              View Schedule
+            </b-button>
           </tr>
         </table>
       </div>
@@ -142,14 +164,15 @@
           <tr class="userTableRow">
             <div>
               <input
-              type="DELSCH"
-              v-model="deleteScheduleName"
-              placeholder="Schedule Name"
-              required />
+                type="DELSCH"
+                v-model="deleteScheduleName"
+                placeholder="Schedule Name"
+                required
+              />
             </div>
-            <button class="btnUser" @click="deleteSchedule">
+            <b-button class="btnUser" id="userTableBtn" @click="deleteSchedule">
               Delete Schedule
-            </button>
+            </b-button>
           </tr>
         </table>
       </div>

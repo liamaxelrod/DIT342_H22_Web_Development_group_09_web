@@ -2,17 +2,14 @@
   <div id="backchangewhite">
     <div>
       <div><h1>Update Profile</h1></div>
-      <div><p2 style=" color:red; font-size: max(2vw, 12px)"> You will have to login again once you change your information!</p2></div>
       <div>
-        <img
-          src="../images/ProfilePicture.png"
-          alt="Profile Picture"
-          class="image"
-        />
+        <p2 style="color: red; font-size: max(2vw, 12px)">
+          You will have to login again once you change your information!</p2
+        >
       </div>
       <div>
         <div>
-          <label for="newName" >New name: </label>
+          <label for="newName">New name: </label>
           <input
             id="newInfo"
             class="newName"
@@ -22,7 +19,7 @@
           />
         </div>
         <div>
-          <label for="newEmail" >New Email: </label>
+          <label for="newEmail">New Email: </label>
           <input
             id="newInfo"
             class="newEmail"
@@ -43,7 +40,15 @@
         </div>
       </div>
       <div>
-        <button class="btnUser" @click="updateAll()">Update</button>
+        <b-button class="btnUser" id="infoUpdateBtn" @click="updateAll()"
+          >Update</b-button
+        >
+        <b-button
+          class="btnUser"
+          id="infoCancelBtn"
+          onClick="location.href='/profile'"
+          >Cancel</b-button
+        >
       </div>
     </div>
   </div>
