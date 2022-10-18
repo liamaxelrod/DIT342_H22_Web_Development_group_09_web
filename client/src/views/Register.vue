@@ -54,6 +54,7 @@ input[type='namae'],
 input[type='txt'],
 input[type='password'] {
   width: 60%;
+  min-width: 162px;
   margin: 5px 0 10px 0;
   display: inline-block;
   border: none;
