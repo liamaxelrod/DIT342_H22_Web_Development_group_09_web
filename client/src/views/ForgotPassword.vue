@@ -13,7 +13,7 @@
   <style>
   input[type='text'],
   input[type='email'] {
-    width: 27%;
+    width: 60%;
     margin: 5px 0 10px 0;
     display: inline-block;
     border: none;
