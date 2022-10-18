@@ -1,14 +1,15 @@
 <template>
-  <div id="center">
-  <h1 style="color:#FFCA3A;">Welcome to Quick Scheduling</h1>
+  <div class="center">
+    <div class="textbox">
+  <h1 style="color:aliceblue;">Welcome to Quick Scheduling</h1>
   <br>
   <div class="form-username">
-          <h3 style="color:#98D2EB">Username</h3><br />
+          <h3 style="color:aliceblue">Username</h3><br />
           <input type="userName" class="form-control" v-model="username" placeholder="Enter Username" required/><br />
         </div>
   <br>
   <div class="form-password">
-          <h3 style="color:#98D2EB">Password</h3><br />
+          <h3 style="color:aliceblue">Password</h3><br />
           <input type="password" class="form-control" v-model="password" placeholder="Enter Password" required/><br />
         <!-- if incorrect password let the user know that the password is incorrect -->
         <div v-if="incorrectPassword">
@@ -20,6 +21,7 @@
         <button onclick="location.href='/register'" class="registerbtn">Register</button>
         <button @click="login(username, password)" class="registerbtn">Log in</button>
         </div>
+      </div>
       </div>
   </template>
 <script>

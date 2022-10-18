@@ -1,22 +1,22 @@
 <template>
-  <div id="center">
-    <h1 style="color:#FFCA3A;">New Account Registration</h1>
+  <div class="center">
+    <h1 style="color:aliceblue;">New Account Registration</h1>
     <br>
     <div class="form-username">
-      <h3 style="color:#98D2EB">Username</h3><br />
+      <h3 style="color:aliceblue">Username</h3><br />
       <input id="username" type="USER" class="form-control" v-model="user.username" placeholder="Enter Username" required /><br />
     </div>
     <br>
     <div class="form-password">
-      <h3 style="color:#98D2EB">Password</h3><br />
+      <h3 style="color:aliceblue">Password</h3><br />
       <input id="password" type="password" class="form-control" v-model="user.password" placeholder="Enter Password" required /><br />
     </div>
     <div>
-      <h3 style="color:#98D2EB">Name</h3><br />
+      <h3 style="color:aliceblue">Name</h3><br />
       <input id="name" type="namae" class="form-control" v-model="user.name" placeholder="Enter name" required /><br />
     </div>
     <div>
-      <h3 style="color:#98D2EB">Email</h3><br />
+      <h3 style="color:aliceblue">Email</h3><br />
       <input id="email" type="txt" class="form-control" v-model="user.email" placeholder="Enter email" required /><br />
     </div>
     <div id="buttonbox">

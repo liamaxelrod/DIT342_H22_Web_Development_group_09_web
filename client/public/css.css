@@ -1,23 +1,30 @@
-body {
+/* body {
   background-image: url('Pictures/114617b.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-}
+} */
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-align: center;
 }
-#center {
+.center {
   position: absolute;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
+  height: 100%;
+  width: 100%;
+  vertical-align:middle;
+  margin: auto;
+  background-color: #cccccc;
+  background-image: repeating-radial-gradient(purple 15%, crimson 25%, chartreuse 10%);
+}
+.textbox{
+  position: absolute;
+  text-align: center;
+  top: 25%;
+  left: 25%;
   height: 50%;
   width: 50%;
-  margin: auto;
 }
 .registerbtn {
   background-color: white;
