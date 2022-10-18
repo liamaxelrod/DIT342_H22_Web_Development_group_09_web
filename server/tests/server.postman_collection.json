@@ -1,40 +1,66 @@
 {
 	"info": {
-		"_postman_id": "fb07bd22-82e3-48d3-96eb-07925011c2e0",
+		"_postman_id": "a523e0e8-2ddf-469d-95f8-bee71b5e8104",
 		"name": "server",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23101568"
+		"_exporter_id": "23101826"
 	},
 	"item": [
 		{
-			"name": "GET /api",
+			"name": "/api/users",
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							""
+							"pm.environment.set(\"variable_key\", \"variable_value\");"
 						],
 						"type": "text/javascript"
 					}
 				}
 			],
 			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"newGold\",\r\n    \"password\": \"Gold\",\r\n    \"name\": \"Noah\",\r\n    \"email\": \"noahGold@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
 					}
-				],
+				},
 				"url": {
-					"raw": "{{host}}/api",
+					"raw": "http://localhost:3000/api/users",
+					"protocol": "http",
 					"host": [
-						"{{host}}"
+						"localhost"
 					],
+					"port": "3000",
 					"path": [
-						"api"
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users"
 					]
 				}
 			},
