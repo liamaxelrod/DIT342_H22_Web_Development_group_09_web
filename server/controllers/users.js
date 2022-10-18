@@ -238,6 +238,7 @@ router.delete( // finds the user delete their array of ID schedules // not conne
     })
   })
 });
+// cool
 
 router.get( //findds a user and gets that user schedules IDs that were made by this user // not connected to front end needed or class
   "/api/users/:username/schedules", function (req, res, next) {
