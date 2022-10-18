@@ -49,7 +49,7 @@ export default {
 }
 </script>
 <style>
-input[type='USER']:,
+input[type='USER'],
 input[type='namae'],
 input[type='txt'],
 input[type='username'] {
