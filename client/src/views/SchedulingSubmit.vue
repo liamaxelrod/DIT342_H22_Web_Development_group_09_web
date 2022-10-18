@@ -205,6 +205,7 @@ export default {
     },
     handlePatch() {
       Api.get('/schedules').then(response => {
+        console.log(response)
         const arr = response.data.schedules
         for (let i = 0; i < arr.length; i++) {
           const element = arr[i].scheduleName
@@ -219,9 +220,9 @@ export default {
           } else {
             if (this.guestUsername === this.owner) {
               this.cells.scheduleName = this.makeNewScheduleName // use an input instead
-              // Api.patch('/schedules/' + this.scheduleID, this.cells)
-              // this.$router.push('/SchedulingSubmit/' + this.$route.params.userId + '/schedules/' + this.cells.scheduleName)
-              // this.$router.push('/profile')
+              Api.patch('/schedules/' + this.scheduleID, this.cells)
+              this.$router.push('/SchedulingSubmit/' + this.$route.params.userId + '/schedules/' + this.cells.scheduleName)
+              this.$router.push('/profile')
             } else {
               this.makeNewScheduleName = 'You are not the owner'
             }
