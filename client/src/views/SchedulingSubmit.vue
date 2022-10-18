@@ -110,9 +110,9 @@
     </div>
     <div>
       <br><input type="text" id="getNewSchedule" v-model="makeNewScheduleName" placeholder="new schedule name"/><br/>
-      <button @click="handlePatch()" class="registerbtn">update name</button>
-      <button @click="returnToProfile()" class="registerbtn">return</button>
-      <button @click="handlePut()" class="registerbtn">save changes</button>
+      <button @click="handlePatch()" class="btnUser">Update Name</button>
+      <button @click="returnToProfile()" class="btnUser">Return</button>
+      <button @click="handlePut()" class="btnUser">Save Changes</button>
     </div>
   </div>
 </template>
@@ -219,7 +219,7 @@ export default {
               this.cells.scheduleName = this.makeNewScheduleName // use an input instead
               Api.patch('/schedules/' + this.scheduleID, this.cells).then(console.log)
               this.$router.push('/SchedulingSubmit/' + this.$route.params.userId + '/schedules/' + this.cells.scheduleName)
-              location.reload()
+              this.$router.push('/profile')
             } else {
               this.makeNewScheduleName = 'You are not the owner'
             }

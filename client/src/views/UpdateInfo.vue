@@ -2,6 +2,7 @@
   <div id="backchangewhite">
     <div>
       <div><h1>Update Profile</h1></div>
+      <div><p2 style=" color:red; font-size: max(2vw, 12px)"> You will have to login again once you change your information!</p2></div>
       <div>
         <img
           src="../images/ProfilePicture.png"

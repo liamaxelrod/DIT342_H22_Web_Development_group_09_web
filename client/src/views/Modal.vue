@@ -1,3 +1,4 @@
+<!-- OUT OF SCOPE, HERE FOR LATER REFERENCE
 <template>
   <div v-if="show" class="modalBg">
     <div class="center-modal">
@@ -22,3 +23,4 @@ export default {
   }
 }
 </script>
+-->

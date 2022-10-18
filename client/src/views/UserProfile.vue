@@ -1,17 +1,20 @@
 <template>
   <div>
     <div class="left">
-      <h1>Profile</h1>
+      <h1 style="color: white; font-size: max(4vw, 30px)">Profile</h1>
       <div>
         <img
           src="../images/ProfilePicture.png"
           alt="profile picture"
           class="image"
-          @click="pictureModal = true"
         />
       </div>
       <div>
-        <button class="btnUser" onclick="location.href='/update'">
+        <button
+          class="btnUser"
+          id="updatebtn"
+          onclick="location.href='/update'"
+        >
           Update Profile
         </button>
       </div>
@@ -19,7 +22,7 @@
         <div>
           <label for="uname" class="label">Username: </label>
           <input
-            type="text"
+            type="userInfo"
             id="uname"
             class="userInfo"
             :value="this.currentUser.username"
@@ -30,7 +33,7 @@
         <div>
           <label for="name" class="label">Name: </label>
           <input
-            type="text"
+            type="userInfo"
             id="name"
             class="userInfo"
             :value="this.currentUser.name"
@@ -40,7 +43,7 @@
         <div>
           <label for="email" class="label">Email: </label>
           <input
-            type="text"
+            type="userInfo"
             id="email"
             class="userInfo"
             :value="this.currentUser.email"
@@ -56,9 +59,9 @@
     </div>
     <div class="right">
       <div class="top">
-        <table>
-          <th>CREATE A SCHEDULE</th>
-          <tr>
+        <table class="userTable">
+          <th class="userTableHeader">CREATE A SCHEDULE</th>
+          <tr class="userTableRow">
             <div>
               <div>
                 <input
@@ -85,9 +88,9 @@
         </table>
       </div>
       <div class="middle">
-        <table>
-          <th>SELETECT A SCHEDULE</th>
-          <tr>
+        <table class="userTable">
+          <th class="userTableHeader">SELETECT A SCHEDULE</th>
+          <tr class="userTableRow">
             <div>
               <input
               type="EXSCH"
@@ -102,9 +105,9 @@
         </table>
       </div>
       <div class="bottom">
-        <table>
-          <th>DELETE A SCHEDULE</th>
-          <tr>
+        <table class="userTable">
+          <th class="userTableHeader">DELETE A SCHEDULE</th>
+          <tr class="userTableRow">
             <div>
               <input
               type="DELSCH"
@@ -119,43 +122,14 @@
         </table>
       </div>
     </div>
-    <div>
-      <modal :show="pictureModal" @cancel="pictureModal = false">
-        <template #slot1>
-          <h3 style="font-weight: bold">Change your profile photo</h3>
-        </template>
-        <template #slot2>
-          <input type="file" id="upload" hidden />
-          <label for="upload" id="uploadbtn">UPLOAD PHOTO</label>
-        </template>
-        <template #slot3>
-          <button id="removebtn">REMOVE PHOTO</button>
-        </template>
-      </modal>
-    </div>
-    <div>
-      <modal :show="deleteModal" @cancel="deleteModal = false">
-        <template #slot1>
-          <h4>Are your sure you want to delete this Schedule?</h4></template
-        >
-        <template #slot3> <button id="uploadbtn">Confirm</button></template>
-      </modal>
-    </div>
   </div>
 </template>
 <script>
 import { Api } from '../Api'
-import Modal from './Modal.vue'
 export default {
-  name: 'UserProfile',
-  components: {
-    Modal
-  },
   data() {
     return {
       scheduleNameExists: false,
-      pictureModal: false,
-      deleteModal: false,
       invalidScheduleName: false,
       deleteScheduleName: '',
       selectScheduleName: '',
@@ -235,14 +209,25 @@ export default {
       if (this.cells.scheduleName === '') {
         this.cells.scheduleName = 'insert name'
       } else {
-        const res = await Api.post('users/' + this.currentUser._id + '/schedules', this.cells)
+        const res = await Api.post(
+          'users/' + this.currentUser._id + '/schedules',
+          this.cells
+        )
         if (res.status === 201) {
           const usersArr = await Api.get('/users')
           for (let i = 0; i < usersArr.data.users.length; i++) {
             if (usersArr.data.users[i].username === this.currentUser.username) {
               this.currentUser = usersArr.data.users[i]
-              localStorage.setItem('currentUser', JSON.stringify(this.currentUser))
-              this.$router.push('/SchedulingSubmit/' + this.currentUser._id + '/schedules/' + this.cells.scheduleName)
+              localStorage.setItem(
+                'currentUser',
+                JSON.stringify(this.currentUser)
+              )
+              this.$router.push(
+                '/SchedulingSubmit/' +
+                  this.currentUser._id +
+                  '/schedules/' +
+                  this.cells.scheduleName
+              )
             }
           }
           this.invalidScheduleName = false
@@ -252,7 +237,7 @@ export default {
       }
     },
     checkIfExists() {
-      Api.get('/schedules').then(response => {
+      Api.get('/schedules').then((response) => {
         const arr = response.data.schedules
         for (let i = 0; i < arr.length; i++) {
           const element = arr[i].scheduleName
@@ -269,16 +254,21 @@ export default {
       })
     },
     async selectSchedule() {
-      Api.get('/schedules').then(response => {
+      Api.get('/schedules').then((response) => {
         const arr = response.data.schedules
         for (let i = 0; i < arr.length; i++) {
           const element = arr[i].scheduleName
           console.log(element)
           if (this.selectScheduleName === element) {
             const cellId = arr[i]._id
-            Api.get('/schedules/' + cellId).then(resCell => {
+            Api.get('/schedules/' + cellId).then((resCell) => {
               this.cells = resCell.data
-              this.$router.push('/SchedulingSubmit/' + this.currentUser._id + '/schedules/' + this.cells.scheduleName)
+              this.$router.push(
+                '/SchedulingSubmit/' +
+                  this.currentUser._id +
+                  '/schedules/' +
+                  this.cells.scheduleName
+              )
             })
           } else {
             this.selectScheduleName = 'Schedule not found'
@@ -317,6 +307,14 @@ input[type='DELSCH'],
 input[type='EXSCH'] {
   width: 15%;
   min-width: 162px;
+  margin: 5px 0 10px 0;
+  display: inline-block;
+  border: none;
+}
+input[type='userInfo'] {
+  text-align: center;
+  width: 27%;
+  min-width: 100px;
   margin: 5px 0 10px 0;
   display: inline-block;
   border: none;
