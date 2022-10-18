@@ -215,14 +215,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/api/users/{{usreID}}/schedules",
+					"raw": "{{host}}/api/users/{{userID}}/schedules",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"api",
 						"users",
-						"{{usreID}}",
+						"{{userID}}",
 						"schedules"
 					]
 				}
@@ -235,14 +235,14 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/api/users/{{usreID}}/schedules",
+					"raw": "{{host}}/api/users/{{userID}}/schedules",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"api",
 						"users",
-						"{{usreID}}",
+						"{{userID}}",
 						"schedules"
 					]
 				}
