@@ -4,34 +4,34 @@
       <table class="table1">
         <tr>
           <th id="title">{{this.scheduleName}}</th>
-          <th>1:00</th>
-          <th>2:00</th>
-          <th>3:00</th>
-          <th>4:00</th>
-          <th>5:00</th>
-          <th>6:00</th>
-          <th>7:00</th>
-          <th>8:00</th>
-          <th>9:00</th>
-          <th>10:00</th>
-          <th>11:00</th>
-          <th>12:00</th>
-          <th>13:00</th>
-          <th>14:00</th>
-          <th>15:00</th>
-          <th>16:00</th>
-          <th>17:00</th>
-          <th>18:00</th>
-          <th>19:00</th>
-          <th>20:00</th>
-          <th>21:00</th>
-          <th>22:00</th>
-          <th>23:00</th>
-          <th>24:00</th>
+          <th class="th1">1:00</th>
+          <th class="th1">2:00</th>
+          <th class="th1">3:00</th>
+          <th class="th1">4:00</th>
+          <th class="th1">5:00</th>
+          <th class="th1">6:00</th>
+          <th class="th1">7:00</th>
+          <th class="th1">8:00</th>
+          <th class="th1">9:00</th>
+          <th class="th1">10:00</th>
+          <th class="th1">11:00</th>
+          <th class="th1">12:00</th>
+          <th class="th1">13:00</th>
+          <th class="th1">14:00</th>
+          <th class="th1">15:00</th>
+          <th class="th1">16:00</th>
+          <th class="th1">17:00</th>
+          <th class="th1">18:00</th>
+          <th class="th1">19:00</th>
+          <th class="th1">20:00</th>
+          <th class="th1">21:00</th>
+          <th class="th1">22:00</th>
+          <th class="th1">23:00</th>
+          <th class="th1">24:00</th>
         </tr>
         <tr>
-          <td>Monday</td>
-          <td
+          <td class="td1">Monday</td>
+          <td class="td1"
             v-for="cell in cells.monday.cellsRo"
             :key="cell.id"
             :cell="cell"
@@ -41,8 +41,8 @@
         </td>
         </tr>
         <tr>
-          <td>Tuesday</td>
-          <td
+          <td class="td1">Tuesday</td>
+          <td class="td1"
             v-for="cell in cells.tuesday.cellsRo"
             :key="cell.id"
             :cell="cell"
@@ -52,8 +52,8 @@
         </td>
         </tr>
         <tr>
-          <td>Wednesday</td>
-          <td
+          <td class="td1">Wednesday</td>
+          <td class="td1"
             v-for="cell in cells.wednesday.cellsRo"
             :key="cell.id"
             :cell="cell"
@@ -63,8 +63,8 @@
         </td>
         </tr>
         <tr>
-          <td>Thursday</td>
-          <td
+          <td class="td1">Thursday</td>
+          <td class="td1"
             v-for="cell in cells.thursday.cellsRo"
             :key="cell.id"
             :cell="cell"
@@ -74,8 +74,8 @@
         </td>
         </tr>
         <tr>
-          <td>Friday</td>
-          <td
+          <td class="td1">Friday</td>
+          <td class="td1"
             v-for="cell in cells.friday.cellsRo"
             :key="cell.id"
             :cell="cell"
@@ -85,8 +85,8 @@
         </td>
         </tr>
         <tr>
-          <td>Saturday</td>
-          <td
+          <td class="td1">Saturday</td>
+          <td class="td1"
             v-for="cell in cells.saturday.cellsRo"
             :key="cell.id"
             :cell="cell"
@@ -96,8 +96,8 @@
         </td>
         </tr>
         <tr>
-          <td>Sunday</td>
-          <td
+          <td class="td1">Sunday</td>
+          <td class="td1"
             v-for="cell in cells.sunday.cellsRo"
             :key="cell.id"
             :cell="cell"
@@ -209,10 +209,10 @@ export default {
         for (let i = 0; i < arr.length; i++) {
           const element = arr[i].scheduleName
           if (this.makeNewScheduleName === element) {
-            this.makeNewScheduleName = 'already exist'
+            this.makeNewScheduleName = 'Already exist'
             break
           } else if (this.makeNewScheduleName === '') {
-            this.makeNewScheduleName = 'not empty'
+            this.makeNewScheduleName = 'Cannot be empty'
             break
           } else {
             if (this.guestUsername === this.owner) {
@@ -221,7 +221,7 @@ export default {
               this.$router.push('/SchedulingSubmit/' + this.$route.params.userId + '/schedules/' + this.cells.scheduleName)
               location.reload()
             } else {
-              this.makeNewScheduleName = 'not owner'
+              this.makeNewScheduleName = 'You are not the owner'
             }
           }
         }
@@ -262,8 +262,8 @@ export default {
 
 <style>
 .table1,
-th,
-td {
+.th1,
+.td1 {
   width: 20px;
   height: 20px;
   border: 2px solid black;
