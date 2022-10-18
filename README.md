@@ -61,14 +61,14 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 ### Purpose
 
-The name of the website will be determined by the group members at a later date. The design of the webpage strives to be intuitive and user friendly. On the other hand, it should also be able to show the intricacies of more complex schedules. The timeslots will be elected by the owner of the schedule planner and the users will then fill in the template.
+The name of the website is "Quick Scheduling". The design of the webpage strives to be intuitive and user friendly. On the other hand, it should also be able to show the intricacies of more complex schedules. The timeslots will be elected by the owner of the schedule planner and the users will then fill in the template.
 
 ### Pages
 
-* Home Page
+* Profile Page
 * Schedule Page
-* Task Manager Page
 * Login Page
+* Register Page
 
 ### Entity-Relationship (ER) Diagram
 
@@ -76,4 +76,6 @@ The name of the website will be determined by the group members at a later date.
 
 ## Teaser (MS3)
 
-![Teaser](./images/teaser.png)
+![Teaser](./images/Login_Page.jpg)
+![Teaser](./images/Profile_Page.jpg)
+![Teaser](./images/Schedule_Page.jpg)
