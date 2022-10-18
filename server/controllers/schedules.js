@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Schedule = require('../models/schedule');
 
-//get schedule //in use
+//get schedule //in use // postman test working
 router.get('/api/schedules', function (req, res, next) {
     Schedule.find(function(err, schedules) {
         if (err) { return next(err); }
@@ -10,7 +10,7 @@ router.get('/api/schedules', function (req, res, next) {
     });
 });
 
-//in use
+//in use // postman test working
 router.get('/api/schedules/:id', function(req, res, next) {
     var id = req.params.id;
     Schedule.findById(id, function(err, schedules) {
@@ -22,7 +22,7 @@ router.get('/api/schedules/:id', function(req, res, next) {
     });
 });
 
-// //in use
+// //in use // postman test working
 //Patchin existing schedule with new parameters
 router.patch('/api/schedules/:id', function(req, res, next) {
     Schedule.findByIdAndUpdate(req.params.id, { $set: {
@@ -38,15 +38,22 @@ router.patch('/api/schedules/:id', function(req, res, next) {
     });
 });
 
-//in use
+//in use // postman test working
 router.put('/api/schedules/:id', (req, res, next) => {
-    console.log(req.body)
-    Schedule.findByIdAndUpdate(req.params.id, req.body)
-    .then(res => res.status(200).json(res))
-    .catch(err => res.status(500).json(err));
+    Schedule.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        .then((result) => {
+            if (result === null) {
+                res.status(404).send({ message: "The Schedule not found." });
+                return;
+            }
+            res.json(result);
+        }).catch((err) => {
+            res.status(502).send();
+            return next(err);
+        });
 });
 ////////////////////////////////////////////////////////////////////////////
-//delete a schedule // not connected to front end needed or class
+//delete a schedule // not connected to front end needed for class
 router.delete('/api/schedules/:id', function(req, res, next) {
     var id = req.params.id;
     Schedule.findOneAndDelete({_id: id}, function(err, schedule) {
@@ -60,7 +67,7 @@ router.delete('/api/schedules/:id', function(req, res, next) {
 
 //delete all schedule // not connected to front end needed or class
 router.delete('/api/schedules', function(req, res, next) {
-    Schedule.delete(function(err, schedule) {
+    Schedule.deleteMany(function(err, schedule) {
         if (err) { return next(err); }
         if (schedule === null) {
             return res.status(404).json({'message': 'schedule not found'});

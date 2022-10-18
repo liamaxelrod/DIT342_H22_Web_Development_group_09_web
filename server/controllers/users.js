@@ -5,7 +5,7 @@ const Schedule = require("../models/schedule");
 const ObjectId = require('mongoose').Types.ObjectId;
 //// const user = require("../models/user");
 
-//  Creates a user // in use  // postman by liam
+//  Creates a user // in use  // postman test working
 router.post("/api/users", function (req, res, next) {
   var user = new User(req.body);
   user.save(function (err, user) {
@@ -16,7 +16,7 @@ router.post("/api/users", function (req, res, next) {
   });
 });
 
-//  Gets all users //in use
+//  Gets all users //in use // postman test working
 router.get("/api/users", function (req, res, next) {
   User.find(function (err, users) {
     if (err) {
@@ -46,7 +46,7 @@ router.get("/api/users", function (req, res, next) {
 //   });
 // });
 
-// find user by ID //in use
+// find user by ID //in use // postman test working
 router.get('/api/users/:id', function(req, res, next) {
   var id = req.params.id;
   User.findById(id, function(err, User) {
@@ -97,14 +97,22 @@ router.get('/api/users/:id', function(req, res, next) {
 //   });
 // });
 
+// // postman test working
 //  Updates User with username using PUT (updates every singe aspect) //in use
 router.put('/api/users/:id', (req, res, next) => {
-  console.log(req.body)
-  User.findByIdAndUpdate(req.params.id, req.body)
-  .then(res => res.status(200).json(res))
-  .catch(err => res.status(500).json(err));
+  User.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        .then((result) => {
+            if (result === null) {
+                res.status(404).send({ message: "The User not found." });
+                return;
+            }
+            res.json(result);
+        }).catch((err) => {
+            res.status(502).send();
+            return next(err);
+        });
 });
-// // check if need to be in use????
+
 // //  Updates User with username using PATCH (updates only the specific aspect)
 // router.patch("/api/users/:username", function (req, res, next) {
 //   const username = req.params.username;
@@ -128,7 +136,7 @@ router.put('/api/users/:id', (req, res, next) => {
 //   });
 // });
 
-//in use
+//in use // postman test working
 router.post(
   "/api/users/:username/schedules", function (req, res, next) {
     const schedule = new Schedule(req.body)
@@ -155,11 +163,13 @@ router.post(
 
   });
 
+// postman test working
 router.get( //in use
   "/api/users/:username/schedules/:name", function (req, res, next) {
     var userId = req.params["username"]
     var scheduleName = req.params["name"]
-
+    console.log(userId)
+    console.log(scheduleName)
     User.findById(userId).populate("schedule").then((result) => {
       if (result === null) {
         console.log('null')
@@ -180,6 +190,7 @@ router.get( //in use
     })
   });
 
+// postman test working
 router.delete( //in use
   "/api/users/:username/schedules/:id", function (req, res, next) {
   var userId = req.params["username"]
@@ -210,6 +221,7 @@ router.delete( //in use
   })
 });
 
+// postman test working
 router.delete( // finds the user delete their array of ID schedules // not connected to front end needed or class
   "/api/users/:username/schedules", function (req, res, next) {
   var userId = req.params["username"]
@@ -237,8 +249,8 @@ router.delete( // finds the user delete their array of ID schedules // not conne
     })
   })
 });
-// cool
 
+// postman test working
 router.get( //findds a user and gets that user schedules IDs that were made by this user // not connected to front end needed or class
   "/api/users/:username/schedules", function (req, res, next) {
     var userId = req.params["username"]
