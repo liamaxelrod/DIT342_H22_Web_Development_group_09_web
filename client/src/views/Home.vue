@@ -3,12 +3,12 @@
   <h1 style="color:#FFCA3A;">Welcome to Quick Scheduling</h1>
   <br>
   <div class="form-username">
-          <h3 style="color:#98D2EB" id="username">Username</h3><br />
+          <h3 style="color:#98D2EB">Username</h3><br />
           <input type="text" class="form-control" v-model="username" placeholder="Enter Username" required/><br />
         </div>
   <br>
   <div class="form-password">
-          <h3 style="color:#98D2EB" id="password">Password</h3><br />
+          <h3 style="color:#98D2EB">Password</h3><br />
           <input type="password" class="form-control" v-model="password" placeholder="Enter Password" required/><br />
         <!-- if incorrect password let the user know that the password is incorrect -->
         <div v-if="incorrectPassword">
@@ -77,10 +77,10 @@ export default {
 }
 </script>
 <div class="backgroundx"></div>
-<style>
+ <style>
   input[type='text'],
   input[type='password'] {
-    width: 27%;
+    width: 60%;
     margin: 5px 0 10px 0;
     display: inline-block;
     border: none;

@@ -51,7 +51,7 @@ export default {
 <style>
 input[type='text'],
 input[type='username'] {
-  width: 162px;
+  width: 60%;
   margin: 5px 0 10px 0;
   display: inline-block;
   border: none;
