@@ -258,7 +258,6 @@ export default {
         const arr = response.data.schedules
         for (let i = 0; i < arr.length; i++) {
           const element = arr[i].scheduleName
-          console.log(element)
           if (this.selectScheduleName === element) {
             const cellId = arr[i]._id
             Api.get('/schedules/' + cellId).then((resCell) => {
@@ -270,8 +269,6 @@ export default {
                   this.cells.scheduleName
               )
             })
-          } else {
-            this.selectScheduleName = 'Schedule not found'
           }
         }
       })
@@ -287,8 +284,6 @@ export default {
             this.deleteScheduleName = ''
             console.log(this.currentUser.schedule)
             break
-          } else {
-            this.deleteScheduleName = 'No matching schedule'
           }
         }
       })
