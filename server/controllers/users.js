@@ -131,7 +131,6 @@ router.put('/api/users/:id', (req, res, next) => {
 //in use
 router.post(
   "/api/users/:username/schedules", function (req, res, next) {
-    console.log('asdasdasdasdadsd')
     const schedule = new Schedule(req.body)
     console.log(req.body)
     schedule.cells = {
