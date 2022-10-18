@@ -6,17 +6,17 @@
         <img
           src="../images/ProfilePicture.png"
           alt="profile picture"
-          class="image"
+          class="image1"
         />
       </div>
       <div>
-        <button
+        <b-button
           class="btnUser"
           id="updatebtn"
           onclick="location.href='/update'"
         >
           Update Profile
-        </button>
+        </b-button>
       </div>
       <div class>
         <div>
@@ -52,9 +52,9 @@
         </div>
       </div>
       <div>
-        <button class="btnUser" id="logoutbtn" @click="logout()">
+        <b-button class="btnUser" id="logoutbtn" @click="logout()">
           Log Out
-        </button>
+        </b-button>
       </div>
     </div>
     <div class="right">
@@ -80,16 +80,16 @@
               </div>
             </div>
             <div>
-              <button class="btnUser" @click="checkIfExists">
+              <b-button class="btnUser" id="userTableBtn" @click="checkIfExists">
                 Create Schedule
-              </button>
+              </b-button>
             </div>
           </tr>
         </table>
       </div>
       <div class="middle">
         <table class="userTable">
-          <th class="userTableHeader">SELETECT A SCHEDULE</th>
+          <th class="userTableHeader">VIEW A SCHEDULE</th>
           <tr class="userTableRow">
             <div>
               <input
@@ -98,9 +98,9 @@
               placeholder="Schedule Name"
               required />
             </div>
-            <button class="btnUser" @click="selectSchedule">
-              select a schedule
-            </button>
+            <b-button class="btnUser" id="userTableBtn" @click="selectSchedule">
+              View Schedule
+            </b-button>
           </tr>
         </table>
       </div>
@@ -115,9 +115,9 @@
               placeholder="Schedule Name"
               required />
             </div>
-            <button class="btnUser" @click="deleteSchedule">
+            <b-button class="btnUser" id="userTableBtn" @click="deleteSchedule">
               Delete Schedule
-            </button>
+            </b-button>
           </tr>
         </table>
       </div>

@@ -7,7 +7,7 @@
         <img
           src="../images/ProfilePicture.png"
           alt="Profile Picture"
-          class="image"
+          class="image2"
         />
       </div>
       <div>
@@ -43,7 +43,8 @@
         </div>
       </div>
       <div>
-        <button class="btnUser" @click="updateAll()">Update</button>
+        <b-button class="btnUser" id="infoUpdateBtn" @click="updateAll()">Update</b-button>
+        <b-button class="btnUser" id="infoCancelBtn" onClick2="location.href='/profile'">Cancel</b-button>
       </div>
     </div>
   </div>

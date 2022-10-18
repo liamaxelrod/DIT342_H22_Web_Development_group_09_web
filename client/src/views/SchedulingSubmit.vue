@@ -110,9 +110,9 @@
     </div>
     <div>
       <br><input type="text" id="getNewSchedule" v-model="makeNewScheduleName" placeholder="new schedule name"/><br/>
-      <button @click="handlePatch()" class="btnUser">Update Name</button>
-      <button @click="returnToProfile()" class="btnUser">Return</button>
-      <button @click="handlePut()" class="btnUser">Save Changes</button>
+      <b-button @click="handlePatch()" class="btnUser" id="scheduleUpdateBtn" >Update Name</b-button>
+      <b-button @click="returnToProfile()" class="btnUser" id="scheduleReturnBtn">Return</b-button>
+      <b-button @click="handlePut()" class="btnUser" id="scheduleSaveBtn">Save Changes</b-button>
     </div>
   </div>
 </template>

@@ -58,7 +58,7 @@ body {
   right: 0;
   background-color: white;
 }
-.image {
+.image1 {
   width: 60%;
   height: 60%;
   min-width: 20px;
@@ -66,6 +66,15 @@ body {
   border-radius: 50%;
   margin: 10px;
   border: 1px solid black;
+}
+.image2{
+  width: 10%;
+  height: 10%;
+  min-width:100px;
+  min-height:100px;
+  border-radius:50%;
+  border: 1px solid black;
+  margin: 10px;
 }
 h1 {
   font-size: 40px;
@@ -113,16 +122,44 @@ p {
   right: 0;
   background-color: white;
 }
-.btnUser {
+.btnuser, #userTableBtn, #infoUpdateBtn, #scheduleUpdateBtn {
   color: white;
   background-color: rgb(55, 55, 158);
-  width: 125px;
+  width: 140px;
   height: 45px;
   font-size: 15px;
   font-weight: 50%;
   margin: 10px;
 }
-.btnUser:hover {
+.btnUser:hover, #userTableBtn:hover, #infoUpdateBtn:hover, #scheduleUpdateBtn:hover {
+  color: rgb(254, 0, 0);
+  background-color: white;
+  font-weight: 70%;
+}
+#infoCancelBtn, #scheduleReturnBtn {
+  color: white;
+  background-color: rgb(166, 18, 18);
+  width: 140px;
+  height: 45px;
+  font-size: 15px;
+  font-weight: 50%;
+  margin: 10px;
+}
+#infoCancelBtn:hover, #scheduleReturnBtn:hover {
+  color: rgb(254, 0, 0);
+  background-color: white;
+  font-weight: 70%;
+}
+#scheduleSaveBtn{
+  color: white;
+  background-color: rgb(3, 140, 38);
+  width: 140px;
+  height: 45px;
+  font-size: 15px;
+  font-weight: 50%;
+  margin: 10px;
+}
+#scheduleSaveBtn:hover{
   color: rgb(254, 0, 0);
   background-color: white;
   font-weight: 70%;
@@ -168,4 +205,5 @@ p {
   width: 40%;
   background-color: rgb(205, 205, 205);
   color: black;
+  margin: 10px;
 }
