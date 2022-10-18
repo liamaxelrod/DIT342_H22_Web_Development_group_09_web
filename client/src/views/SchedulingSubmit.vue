@@ -208,6 +208,8 @@ export default {
         const arr = response.data.schedules
         for (let i = 0; i < arr.length; i++) {
           const element = arr[i].scheduleName
+          console.log(this.makeNewScheduleName)
+          console.log(element)
           if (this.makeNewScheduleName === element) {
             this.makeNewScheduleName = 'Already exist'
             break
@@ -217,9 +219,9 @@ export default {
           } else {
             if (this.guestUsername === this.owner) {
               this.cells.scheduleName = this.makeNewScheduleName // use an input instead
-              Api.patch('/schedules/' + this.scheduleID, this.cells).then(console.log)
-              this.$router.push('/SchedulingSubmit/' + this.$route.params.userId + '/schedules/' + this.cells.scheduleName)
-              this.$router.push('/profile')
+              // Api.patch('/schedules/' + this.scheduleID, this.cells)
+              // this.$router.push('/SchedulingSubmit/' + this.$route.params.userId + '/schedules/' + this.cells.scheduleName)
+              // this.$router.push('/profile')
             } else {
               this.makeNewScheduleName = 'You are not the owner'
             }

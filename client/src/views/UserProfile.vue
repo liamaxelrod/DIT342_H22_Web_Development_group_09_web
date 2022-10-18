@@ -2,22 +2,6 @@
   <div>
     <div class="left">
       <h1 style="color: white; font-size: max(4vw, 30px)">Profile</h1>
-      <div>
-        <img
-          src="../images/ProfilePicture.png"
-          alt="profile picture"
-          class="image1"
-        />
-      </div>
-      <div>
-        <b-button
-          class="btnUser"
-          id="updatebtn"
-          onclick="location.href='/update'"
-        >
-          Update Profile
-        </b-button>
-      </div>
       <div class>
         <div>
           <label for="uname" class="label">Username: </label>
@@ -52,6 +36,71 @@
         </div>
       </div>
       <div>
+        <b-button
+          class="btnUser"
+          id="updatebtn"
+          onclick="location.href='/update'"
+        >
+          Update Profile
+        </b-button>
+      </div>
+      <div>
+        <label for="occupation" class="label"> occupation: </label>
+        <label for="occupation" class="label">
+          {{ this.displayOccupation }}
+        </label>
+        <input
+          type="OCC"
+          id="occupationName"
+          v-model="occupation.stringOccupation"
+          placeholder="occupation"
+        />
+        <div>
+          <b-button
+            class="btnUser"
+            id="userSubmitOccupcationBtn"
+            @click="makeOccupation"
+          >
+            Submit Occupation
+          </b-button>
+        </div>
+        <div>
+          <b-button
+            class="btnUser"
+            id="userDeleteOccupcationBtn"
+            @click="deleteOccupation"
+          >
+            Delete Occupation
+          </b-button>
+        </div>
+      </div>
+      <div>
+        <label for="quoteOfTheDay" class="label"> Quote: </label>
+        <label for="quoteOfTheDay" class="label">
+          {{ this.displayQuoteOfTheDay }}
+        </label>
+        <input
+          type="OCC"
+          id="quoteOfTheDayName"
+          v-model="quoteOfTheDay.stringQuoteOfTheDay"
+          placeholder="insert quote"
+        />
+        <b-button
+          class="btnUser"
+          id="userSubmitQuoteBtn"
+          @click="makeQuoteOfTheDay"
+        >
+          submit quote
+        </b-button>
+        <b-button
+          class="btnUser"
+          id="userDeleteQuoteBtn"
+          @click="deleteQuoteOfTheDay"
+        >
+          delete quote
+        </b-button>
+      </div>
+      <div>
         <b-button class="btnUser" id="logoutbtn" @click="logout()">
           Log Out
         </b-button>
@@ -80,7 +129,11 @@
               </div>
             </div>
             <div>
-              <b-button class="btnUser" id="userTableBtn" @click="checkIfExists">
+              <b-button
+                class="btnUser"
+                id="userTableBtn"
+                @click="checkIfExists"
+              >
                 Create Schedule
               </b-button>
             </div>
@@ -93,10 +146,11 @@
           <tr class="userTableRow">
             <div>
               <input
-              type="EXSCH"
-              v-model="selectScheduleName"
-              placeholder="Schedule Name"
-              required />
+                type="EXSCH"
+                v-model="selectScheduleName"
+                placeholder="Schedule Name"
+                required
+              />
             </div>
             <b-button class="btnUser" id="userTableBtn" @click="selectSchedule">
               View Schedule
@@ -110,10 +164,11 @@
           <tr class="userTableRow">
             <div>
               <input
-              type="DELSCH"
-              v-model="deleteScheduleName"
-              placeholder="Schedule Name"
-              required />
+                type="DELSCH"
+                v-model="deleteScheduleName"
+                placeholder="Schedule Name"
+                required
+              />
             </div>
             <b-button class="btnUser" id="userTableBtn" @click="deleteSchedule">
               Delete Schedule
@@ -129,6 +184,16 @@ import { Api } from '../Api'
 export default {
   data() {
     return {
+      displayQuoteOfTheDay: '',
+      quoteOfTheDay: {
+        goesWithUserID: '',
+        stringQuoteOfTheDay: ''
+      },
+      displayOccupation: '',
+      occupation: {
+        goesWithUserID: '',
+        stringOccupation: ''
+      },
       scheduleNameExists: false,
       invalidScheduleName: false,
       deleteScheduleName: '',
@@ -203,8 +268,60 @@ export default {
   mounted() {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
     this.cells.owner = this.currentUser.username
+    this.occupation.goesWithUserID = this.currentUser._id
+    this.quoteOfTheDay.goesWithUserID = this.currentUser._id
+    Api.get('/occupations').then((response) => {
+      const arr = response.data.occupation
+      for (let i = 0; i < arr.length; i++) {
+        const element = arr[i]
+        if (element.goesWithUserID === this.currentUser._id) {
+          this.displayOccupation = element.stringOccupation
+        }
+      }
+    })
+    Api.get('/quoteOfTheDays').then((response) => {
+      const arr = response.data.quoteOfTheDays
+      for (let i = 0; i < arr.length; i++) {
+        const element = arr[i]
+        console.log(element)
+        if (element.goesWithUserID === this.currentUser._id) {
+          console.log(element.stringQuoteOfTheDay)
+          this.displayQuoteOfTheDay = element.stringQuoteOfTheDay
+        }
+      }
+    })
   },
   methods: {
+    makeOccupation() {
+      Api.get('occupations/').then((response) => {
+        console.log(response.data.occupation.length)
+        if (response.data.occupation.length === 0) {
+          Api.post('occupations/', this.occupation)
+          location.reload()
+        } else {
+          this.occupation.stringOccupation = 'delete'
+        }
+      })
+    },
+    deleteOccupation() {
+      Api.delete('occupations/')
+      location.reload()
+    },
+    makeQuoteOfTheDay() {
+      Api.get('quoteOfTheDays/').then((response) => {
+        if (response.data.quoteOfTheDays.length === 0) {
+          Api.post('quoteOfTheDays/', this.quoteOfTheDay)
+          location.reload()
+        } else {
+          console.log('asd')
+          this.quoteOfTheDay.stringQuoteOfTheDay = 'delete'
+        }
+      })
+    },
+    deleteQuoteOfTheDay() {
+      Api.delete('quoteOfTheDays/')
+      location.reload()
+    },
     async createSchedule() {
       if (this.cells.scheduleName === '') {
         this.cells.scheduleName = 'insert name'
@@ -258,7 +375,6 @@ export default {
         const arr = response.data.schedules
         for (let i = 0; i < arr.length; i++) {
           const element = arr[i].scheduleName
-          console.log(element)
           if (this.selectScheduleName === element) {
             const cellId = arr[i]._id
             Api.get('/schedules/' + cellId).then((resCell) => {
@@ -270,8 +386,6 @@ export default {
                   this.cells.scheduleName
               )
             })
-          } else {
-            this.selectScheduleName = 'Schedule not found'
           }
         }
       })
@@ -287,8 +401,6 @@ export default {
             this.deleteScheduleName = ''
             console.log(this.currentUser.schedule)
             break
-          } else {
-            this.deleteScheduleName = 'No matching schedule'
           }
         }
       })
@@ -312,6 +424,14 @@ input[type='EXSCH'] {
   border: none;
 }
 input[type='userInfo'] {
+  text-align: center;
+  width: 27%;
+  min-width: 100px;
+  margin: 5px 0 10px 0;
+  display: inline-block;
+  border: none;
+}
+input[type='OCC'] {
   text-align: center;
   width: 27%;
   min-width: 100px;

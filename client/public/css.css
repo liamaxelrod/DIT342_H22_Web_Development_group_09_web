@@ -59,20 +59,19 @@ body {
   background-color: white;
 }
 .image1 {
-  width: 60%;
-  height: 60%;
+  width: 45%;
+  height: 45%;
   min-width: 20px;
   min-height: 20px;
   border-radius: 50%;
-  margin: 10px;
   border: 1px solid black;
 }
-.image2{
+.image2 {
   width: 10%;
   height: 10%;
-  min-width:100px;
-  min-height:100px;
-  border-radius:50%;
+  min-width: 100px;
+  min-height: 100px;
+  border-radius: 50%;
   border: 1px solid black;
   margin: 10px;
 }
@@ -122,7 +121,10 @@ p {
   right: 0;
   background-color: white;
 }
-.btnuser, #userTableBtn, #infoUpdateBtn, #scheduleUpdateBtn {
+.btnuser,
+#userTableBtn,
+#infoUpdateBtn,
+#scheduleUpdateBtn {
   color: white;
   background-color: rgb(55, 55, 158);
   width: 140px;
@@ -131,12 +133,24 @@ p {
   font-weight: 50%;
   margin: 10px;
 }
-.btnUser:hover, #userTableBtn:hover, #infoUpdateBtn:hover, #scheduleUpdateBtn:hover {
+.btnUser:hover,
+#userTableBtn:hover,
+#infoUpdateBtn:hover,
+#scheduleUpdateBtn:hover,
+#infoCancelBtn:hover,
+#scheduleReturnBtn:hover,
+#userDeleteOccupcationBtn:hover,
+#scheduleSaveBtn:hover,
+#userSubmitOccupcationBtn:hover, 
+#userDeleteQuoteBtn:hover,
+#userSubmitQuoteBtn:hover,
+#userDeleteQuoteBtn:hover {
   color: rgb(254, 0, 0);
   background-color: white;
   font-weight: 70%;
 }
-#infoCancelBtn, #scheduleReturnBtn {
+#infoCancelBtn,
+#scheduleReturnBtn {
   color: white;
   background-color: rgb(166, 18, 18);
   width: 140px;
@@ -145,12 +159,7 @@ p {
   font-weight: 50%;
   margin: 10px;
 }
-#infoCancelBtn:hover, #scheduleReturnBtn:hover {
-  color: rgb(254, 0, 0);
-  background-color: white;
-  font-weight: 70%;
-}
-#scheduleSaveBtn{
+#scheduleSaveBtn {
   color: white;
   background-color: rgb(3, 140, 38);
   width: 140px;
@@ -159,10 +168,27 @@ p {
   font-weight: 50%;
   margin: 10px;
 }
-#scheduleSaveBtn:hover{
-  color: rgb(254, 0, 0);
-  background-color: white;
-  font-weight: 70%;
+#userDeleteOccupcationBtn,
+#userDeleteQuoteBtn {
+  color: white;
+  background-color: rgb(166, 18, 18);
+  width: 60%;
+  min-width: 80px;
+  height: 40px;
+  font-size: max(1vw, 12px);
+  font-weight: 50%;
+  margin: 10px;
+}
+#userSubmitOccupcationBtn,
+#userSubmitQuoteBtn {
+  color: white;
+  background-color: rgb(3, 140, 38);
+  width: 60%;
+  min-width: 80px;
+  height: 40px;
+  font-size: max(1vw, 12px);
+  font-weight: 50%;
+  margin: 10px;
 }
 #updatebtn {
   color: white;
