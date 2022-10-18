@@ -209,10 +209,10 @@ export default {
         for (let i = 0; i < arr.length; i++) {
           const element = arr[i].scheduleName
           if (this.makeNewScheduleName === element) {
-            this.makeNewScheduleName = 'already exist'
+            this.makeNewScheduleName = 'Already exist'
             break
           } else if (this.makeNewScheduleName === '') {
-            this.makeNewScheduleName = 'not empty'
+            this.makeNewScheduleName = 'Cannot be empty'
             break
           } else {
             if (this.guestUsername === this.owner) {
@@ -221,7 +221,7 @@ export default {
               this.$router.push('/SchedulingSubmit/' + this.$route.params.userId + '/schedules/' + this.cells.scheduleName)
               location.reload()
             } else {
-              this.makeNewScheduleName = 'not owner'
+              this.makeNewScheduleName = 'You are not the owner'
             }
           }
         }
