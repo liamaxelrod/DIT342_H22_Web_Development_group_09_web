@@ -4,7 +4,7 @@
   <br>
   <div class="form-username">
           <h3 style="color:#98D2EB">Username</h3><br />
-          <input type="text" class="form-control" v-model="username" placeholder="Enter Username" required/><br />
+          <input type="userName" class="form-control" v-model="username" placeholder="Enter Username" required/><br />
         </div>
   <br>
   <div class="form-password">
@@ -78,14 +78,15 @@ export default {
 </script>
 <div class="backgroundx"></div>
  <style>
-  input[type='text'],
+  input[type='userName'],
   input[type='password'] {
     width: 60%;
+    min-width: 162px;
     margin: 5px 0 10px 0;
     display: inline-block;
     border: none;
   }
-  input[type='text']:focus,
+  input[type='userName']:focus,
   input[type='password']:focus {
     background-color: #ddd;
     outline: none;

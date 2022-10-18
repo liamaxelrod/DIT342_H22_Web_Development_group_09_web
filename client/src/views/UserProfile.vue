@@ -62,7 +62,7 @@
             <div>
               <div>
                 <input
-                  type="text"
+                  type="SCH"
                   id="scheduleName"
                   v-model="cells.scheduleName"
                   placeholder="Schedule Name"
@@ -90,7 +90,7 @@
           <tr>
             <div>
               <input
-              type="text"
+              type="EXSCH"
               v-model="selectScheduleName"
               placeholder="Schedule Name"
               required />
@@ -107,7 +107,7 @@
           <tr>
             <div>
               <input
-              type="text"
+              type="DELSCH"
               v-model="deleteScheduleName"
               placeholder="Schedule Name"
               required />
@@ -281,7 +281,7 @@ export default {
               this.$router.push('/SchedulingSubmit/' + this.currentUser._id + '/schedules/' + this.cells.scheduleName)
             })
           } else {
-            this.selectScheduleName = 'not found'
+            this.selectScheduleName = 'Schedule not found'
           }
         }
       })
@@ -298,7 +298,7 @@ export default {
             console.log(this.currentUser.schedule)
             break
           } else {
-            this.deleteScheduleName = 'no match'
+            this.deleteScheduleName = 'No matching schedule'
           }
         }
       })
@@ -312,9 +312,11 @@ export default {
 </script>
 
 <style>
-input[type='text'],
-input[type='scheduleName'] {
-  width: 27%;
+input[type='SCH'],
+input[type='DELSCH'],
+input[type='EXSCH'] {
+  width: 15%;
+  min-width: 162px;
   margin: 5px 0 10px 0;
   display: inline-block;
   border: none;
